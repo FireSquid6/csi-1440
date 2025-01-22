@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// we split it into multiple
+// we split it into multiple functions for readability
 void testGetAPersonFromStream();
 void testSortPersonArrayByAge();
 void testSortPersonArrayByName();
