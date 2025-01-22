@@ -16,11 +16,13 @@ istream &getAPersonFromStream(istream &stream, Person *person) {
 
 // implements selection sort ascending order
 void sortPersonArrayByAge(Person **persons, int size) {
-  for (int i = 0; i < size; i++) {
-    bool swapped = false;
+  bool swapped;
 
-    for (int j = 0; j < size; j++) {
-      if (persons[j]->name > persons[j+1]->name) {
+  for (int i = 0; i < size - 1; i++) {
+    swapped = false;
+
+    for (int j = 0; j < size - i - 1; j++) {
+      if (persons[j]->age > persons[j+1]->age) {
         swap(persons[j], persons[j+1]);
         swapped = true;
       }
@@ -34,11 +36,13 @@ void sortPersonArrayByAge(Person **persons, int size) {
 }
 // implements bubble sort ascending order
 void sortPersonArrayByName(Person **persons, int size) {
-  for (int i = 0; i < size; i++) {
-    bool swapped = false;
+  bool swapped;
 
-    for (int j = 0; j < size; j++) {
-      if (persons[j]->age > persons[j+1]->age) {
+  for (int i = 0; i < size - 1; i++) {
+    swapped = false;
+
+    for (int j = 0; j < size - i - 1; j++) {
+      if (persons[j]->name > persons[j+1]->name) {
         swap(persons[j], persons[j+1]);
         swapped = true;
       }
@@ -48,6 +52,7 @@ void sortPersonArrayByName(Person **persons, int size) {
       break;
     }
   }
+
 }
 
 // implements linear search

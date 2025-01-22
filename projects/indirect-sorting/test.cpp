@@ -48,6 +48,13 @@ void testSortPersonArrayByAge() {
 
   sortPersonArrayByAge(people, 5);
 
+  // debug prints I needed
+  // cout << people[0]->age << endl;
+  // cout << people[1]->age << endl;
+  // cout << people[2]->age << endl;
+  // cout << people[3]->age << endl;
+  // cout << people[4]->age << endl;
+
   assert(people[0]->age == 20);
   assert(people[1]->age == 22);
   assert(people[2]->age == 25);
