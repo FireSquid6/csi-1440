@@ -1,3 +1,16 @@
+/**
+* file: main.cpp
+* author: Prof. Aars
+* course: CSI 1440
+* assignment: project 1
+* due date: 1/24/2025
+*
+* date modified: 1/23/2025
+* - create the file
+* 
+* This file contains the entrypoint into the program and sorts a file of people
+*
+*/
 #include "person.h"
 #include <fstream>
 #include <iostream>

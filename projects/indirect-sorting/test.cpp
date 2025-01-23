@@ -1,3 +1,16 @@
+/**
+* file: test.cpp
+* author: Prof. Aars
+* course: CSI 1440
+* assignment: project 1
+* due date: 1/24/2025
+*
+* date modified: 1/23/2025
+* - create the file
+* 
+* This file contains the test driver
+*
+*/
 #include "person.h"
 #include <cassert>
 #include <iostream>
