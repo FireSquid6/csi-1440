@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "person.h"
 
 const int MAX_PERSON_RECORDS = 25;
@@ -19,19 +20,61 @@ int main() {
   }
 
   while (getline(inFile, line)) {
-    Person person;
+    Person* person = new Person;
+    stringstream ss;
+    ss << line;
 
-    getAPersonFromStream(inFile, &person);
+    getAPersonFromStream(ss, person);
 
-    persons[size] = &person;
+    persons[size] = person;
     size += 1;
   } 
 
+  sortPersonArrayByAge(persons, size);
 
-  for (int i = 0; i < size; i++) {
+  cout << endl << "Sorted by age: " << endl;
+  for (int i = 0; i < size || i < 5; i++) {
     displayAPerson(cout, persons[i]);
+    cout << endl;
   }
 
-  // free all memeory
+  sortPersonArrayByName(persons, size);
 
+  cout << endl << "Sorted by name: " << endl;
+  for (int i = 0; i < size || i < 5; i++) {
+    displayAPerson(cout, persons[i]);
+    cout << endl;
+  }
+
+  string userInput = "";
+  cout << endl;
+  while (true) {
+    cout << "Enter a name to find (or \"no more\" to quit): ";
+    getline(cin, userInput);
+
+    if (userInput == "no more") {
+      cout << "Quitting" << endl;
+      break;
+    }
+
+    Person* person = findAPerson(persons, size, userInput);
+    if (person == nullptr) {
+      cout << "not found" << endl;
+    } else {
+      cout << "found: ";
+      displayAPerson(cout, person);
+      cout << endl;
+    }
+
+    cout << endl;
+  }
+
+  // don't make a memory leak!
+  for (int i = 0; i < size; i++) {
+    delete persons[i];
+  }
+  inFile.close();
+
+
+  return 0;
 }
