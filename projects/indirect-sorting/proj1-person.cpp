@@ -11,7 +11,7 @@
 * this file contains the implementation for person.h
 *
 */
-#include "person.h"
+#include "proj1-person.h"
 
 // reads a single Person from the stream
 istream &getAPersonFromStream(istream &stream, Person *person) {

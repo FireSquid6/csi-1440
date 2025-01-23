@@ -11,7 +11,7 @@
 * This file contains the entrypoint into the program and sorts a file of people
 *
 */
-#include "person.h"
+#include "proj1-person.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>

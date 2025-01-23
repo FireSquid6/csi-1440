@@ -11,7 +11,7 @@
 * This file contains the test driver
 *
 */
-#include "person.h"
+#include "proj1-person.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>
