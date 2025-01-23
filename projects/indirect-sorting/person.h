@@ -7,8 +7,8 @@
 using namespace std;
 
 struct Person {
-  string name;
-  int age;
+    string name;
+    int age;
 };
 
 istream &getAPersonFromStream(istream &, Person *); // reads a single Person from the stream
