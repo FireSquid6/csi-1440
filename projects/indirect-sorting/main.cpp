@@ -19,7 +19,13 @@ int main() {
   }
 
   while (getline(inFile, line)) {
-    getAPersonFromStream(inFile, persons[size]);
+
+    Person* person = nullptr;
+
+    getAPersonFromStream(inFile, person);
+
+    persons[size] = person;
+
     size += 1;
   } 
 

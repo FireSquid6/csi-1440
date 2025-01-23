@@ -8,6 +8,8 @@ istream &getAPersonFromStream(istream &stream, Person *person) {
   getline(stream, name, ',');
   stream >> age;
 
+  // TODO: fix me
+  // segfault happening here
   person->name = name;
   person->age = age;
 
