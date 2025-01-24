@@ -16,8 +16,8 @@ using namespace std;
 
 int main() {
     double dbl;
-    // I assume you meant this and not double**
     double* dblPtr;
+    double dbl2;
 
     dbl = 2.5;
     dblPtr = &dbl;
@@ -27,5 +27,11 @@ int main() {
     cout << &dbl << endl;
     cout << &dblPtr << endl;
     cout << sizeof(dbl) << endl;
-    cout << sizeof(&dblPtr) << endl;
+    cout << sizeof(dblPtr) << endl;
+
+    dbl2 = 3.5;  // not in instructions but I figured its what you wanted
+    cout << dbl2 << endl;
+    dblPtr = &dbl2;
+    cout << dblPtr << endl;
+    cout << &dbl2 << endl;
 }
