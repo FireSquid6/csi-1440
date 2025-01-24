@@ -1,9 +1,11 @@
 /*
- * Name:
- * CSI 1440 Section X (where X is your section number)
+ * Name: Jonathan Deiss
+ * CSI 1440 Section 1
  * Lab 1
  * 
- * 
- *    ***** Type in the questions and your asnwer to the questions  ********
+ * "Explain the difference between *, &, and just the variables name" 
+ *  *x - x is a variable that stores a memory address. *x "dereferences" x and returns the data at it's address
+ *  &x - returns the address of memory where x's data is stored
+ *  x - gets the value stored inside of x
  * 
  */
