@@ -1,3 +1,16 @@
+/**
+ * file: proj2-arrayFunctions.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: project 2
+ * due date: 2/2/2025
+ *
+ * date modified: 1/30/2025
+ * - create the file
+ *
+ * Contains the implementation for various integer array utilities
+ *
+ */
 #include "proj2-arrayFunctions.h"
 #include <iostream>
 

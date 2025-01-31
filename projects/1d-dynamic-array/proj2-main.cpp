@@ -1,3 +1,16 @@
+/**
+ * file: proj2-main.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: project 2
+ * due date: 2/2/2025
+ *
+ * date modified: 1/30/2025
+ * - create the file
+ *
+ * the main file for parsing a text file of arrays
+ *
+ */
 #include "proj2-arrayFunctions.h"
 #include <string>
 #include <fstream>
