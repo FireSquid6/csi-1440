@@ -4,19 +4,11 @@
 using namespace std;
 
 void bubbleSort(int *array, int size) {
-  bool swapped;
   for (int i = 0; i < size - 1; i++) {
-    swapped = false;
-
     for (int j = 0; j < size - i - 1; j++) {
       if (array[j] > array[j + 1]) {
         swap(array[j], array[j + 1]);
-        swapped = true;
       }
-    }
-
-    if (!swapped) {
-      break;
     }
   }
 }
@@ -59,6 +51,7 @@ double averageValue(int *array, int size) {
   return total / size;
 }
 
+// assumes that the array is already sorted
 int medianValue(int *array, int size) { 
   int index = (size - 1) / 2;
   return array[index];
