@@ -16,6 +16,18 @@
 
 using namespace std;
 
+/**
+ * bubbleSort
+ *
+ * sorts the array by the bubble sort (O(n^2)) method
+ *
+ * Parameters:
+ * array - the array to sort
+ * size - the size of the array
+ *
+ * Output:
+ * return: void
+ */
 void bubbleSort(int *array, int size) {
   for (int i = 0; i < size - 1; i++) {
     for (int j = 0; j < size - i - 1; j++) {
@@ -26,6 +38,18 @@ void bubbleSort(int *array, int size) {
   }
 }
 
+/**
+ * largestValue
+ *
+ * gets the maximum in an array 
+ *
+ * Parameters:
+ * array - the array to find the max of
+ * size - the size of the array
+ *
+ * Output:
+ * return: int maximum
+ */
 int largestValue(int *array, int size) { 
   if (size == 0) {
     return -1;
@@ -40,6 +64,18 @@ int largestValue(int *array, int size) {
   return max;
 }
 
+/**
+ * smallestValue
+ *
+ * finds the minimum of an array
+ *
+ * Parameters:
+ * array - the array to find the min of
+ * size - the size of the array
+ *
+ * Output:
+ * return: int minimum
+ */
 int smallestValue(int *array, int size) { 
   if (size == 0) {
     return -1;
@@ -54,6 +90,18 @@ int smallestValue(int *array, int size) {
   return min;
 }
 
+/**
+ * averageValue
+ *
+ * finds the mean of an array
+ *
+ * Parameters:
+ * array - the array to find the average of
+ * size - the size of the array
+ *
+ * Output:
+ * return: the average value
+ */
 double averageValue(int *array, int size) {
   double total = 0;
 
@@ -64,7 +112,18 @@ double averageValue(int *array, int size) {
   return total / size;
 }
 
-// assumes that the array is already sorted
+/**
+ * medianValue
+ *
+ * returns the median value of an ALREADY SORTED array
+ *
+ * Parameters:
+ * array - the array to find the median of
+ * size - the size of the array
+ *
+ * Output:
+ * return: median of the array
+ */
 int medianValue(int *array, int size) { 
   int index = (size - 1) / 2;
   return array[index];
