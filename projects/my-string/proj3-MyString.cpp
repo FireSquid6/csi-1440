@@ -1,47 +1,127 @@
-#ifndef MY_STRING_H
-#define MY_STRING_H
+#include "proj3-MyString.h"
+#include <cstring>
 
-#include <iostream>
+void MyString::ensureCanHold(int max) {
+  if (max <= capacity)
+    return;
 
-using namespace std;
+  int newCapacity = capacity;
+  if (newCapacity == 0) {
+    newCapacity = 10;
+  }
+  while (newCapacity <= max) {
+    newCapacity *= 2;
+  }
 
-class MyString {
-  MyString();
+  char *newData = new char[newCapacity];
+  if (data != nullptr) {
+    strcpy(newData, data);
+    delete[] data;
+  }
 
-  // Constructor with an initialization character string
-  MyString(const char *);
+  data = newData;
+  capacity = newCapacity;
+}
 
-  // Destructor
-  ~MyString();
+MyString::MyString() {
+  size = 0;
+  capacity = 0;
+  data = nullptr;
+}
 
-  // Copy constructor
-  MyString(const MyString &);
+MyString::MyString(const char *str) {
+  size = 0;
+  capacity = 0;
+  data = nullptr;
 
-  // Overloaded assignment operator, make a copy of MyString object
-  MyString &operator=(const MyString &);
+  size = strlen(str);
+  ensureCanHold(size);
+  strcpy(data, str);
+}
 
-  // Overloaded equivalence relational operator
-  bool operator==(const MyString &) const;
+MyString::~MyString() { delete[] data; }
 
-  // Overloaded [ ] should return a char by reference
-  char &operator[](int);
+MyString::MyString(const MyString &other) {
+  capacity = 0;
+  data = nullptr;
 
-  // Overloaded += operator, use to concatenate two MyStrings
-  void operator+=(const MyString &);
+  size = other.size;
+  ensureCanHold(size);
+  if (other.data != nullptr) {
+    strcpy(data, other.data);
+  }
+}
 
-  // Create a new MyString object that is the concatenation of two MyString
-  // objects
-  MyString operator+(const MyString &) const;
+MyString &MyString::operator=(const MyString &other) {
+  size = other.size;
+  ensureCanHold(size);
+  if (other.data != nullptr) {
+    strcpy(data, other.data);
+  }
 
-  // Reads an entire line from a istream. Lines are terminated with delimit
-  // which is newline ‘\n’ by default
-  void getline(istream &, char delimit);
+  return *this;
+}
 
-  // Return the length of the string
-  int length() const;
+bool MyString::operator==(const MyString &other) const {
+  if (size != other.size)
+    return false;
+  if (data == nullptr && other.data == nullptr)
+    return true;
+  if (data == nullptr || other.data == nullptr)
+    return false;
+  return strcmp(data, other.data) == 0;
+}
 
-  // Overloaded insertion operator
-  friend ostream &operator<<(ostream &, MyString &);
-};
+char &MyString::operator[](int index) {
+  if (index < 0 || index >= size) {
+    throw std::out_of_range("Index out of bounds");
+  }
+  return data[index];
+}
 
-#endif
+void MyString::operator+=(const MyString &other) {
+  if (other.data == nullptr) {
+    return;
+  }
+
+  int newSize = size + other.size;
+  ensureCanHold(newSize);
+  strcat(data, other.data);
+  size = newSize;
+}
+
+MyString MyString::operator+(const MyString &other) const {
+  MyString result(*this);
+  result += other;
+  return result;
+}
+
+void MyString::getline(istream &is, char delimit = '\n') {
+  const int CHUNK_SIZE = 32;
+  char chunk[CHUNK_SIZE];
+  size = 0;
+
+  while (is.getline(chunk, CHUNK_SIZE, delimit)) {
+    int chunkLen = strlen(chunk);
+    ensureCanHold(size + chunkLen);
+    strcpy(data + size, chunk);
+    size += chunkLen;
+
+    if (is.eof())
+      break;
+    if (is.fail()) {
+      is.clear(); // Clear fail bit
+      continue;   // Continue reading
+    }
+    break; // Delimiter found
+  }
+}
+
+int MyString::length() const { return size; }
+
+ostream &operator<<(ostream &os, MyString &str) {
+  if (str.data != nullptr) {
+    os << str.data;
+  }
+  return os;
+}
