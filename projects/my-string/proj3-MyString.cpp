@@ -1,101 +1,12 @@
 #include "proj3-MyString.h"
-#include <cmath>
 #include <cstring>
 
-// TODO - size is not being updated when it changes
-MyString::MyString() {
-  capacity = 10;
-  size = 0;
-  data = new char[capacity];
-}
-
-MyString::MyString(const MyString& other) {
-  capacity = 0;
-  size = 0;
-  data = new char[0];
-  
-  ensureCanHold(other.size);
-  size = other.size;
-  strcpy(data, other.data);
-}
-
-MyString::~MyString() { delete[] data; }
-
-// iterate until \0
-MyString::MyString(const char *chars) {
-  capacity = 0;
-  data = new char[capacity];
-  size = strlen(chars);
-
-  ensureCanHold(size);
-  strcpy(data, chars);
-}
-
-MyString &MyString::operator=(const MyString &other) {
-  // TODO - is this correct?
-  MyString *newStr = new MyString;
-  newStr->ensureCanHold(other.size);
-  strcpy(newStr->data, other.data);
-
-  return *newStr;
-}
-
-bool MyString::operator==(const MyString &other) const {
-  // shortcut since they can't be equal with different sizes
-  if (size != other.size) {
-    return false;
-  }
-  
-  for (int i = 0; i < size; i++) {
-    if (data[i] != other.data[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-void MyString::operator+=(const MyString &other) {
-  ensureCanHold(length() + other.length());
-  strcat(data, other.data);
-}
-
-MyString &MyString::operator+(const MyString & other) const {
-  int newLength = length() + other.length();
-
-  MyString *newStr;
-  newStr->ensureCanHold(newLength);
-  strcat(newStr->data, data);
-  strcat(newStr->data, other.data);
-  
-  return *newStr;
-}
-
-char &MyString::operator[](int i) const {
-  if (i > length()) {
-    throw "Tried to access a string past its length";
-  }
-
-  return data[i];
-}
-
-int MyString::length() const { return size; }
-ostream &operator<<(ostream &os, MyString &str) {}
-
-void MyString::ensureCanHold(int newSize) {
-  if (capacity >= newSize) {
+void MyString::ensureCanHold(int max) {
+  if (max <= capacity)
     return;
-  }
 
   int newCapacity = capacity;
-
-  // I'm pretty sure this is faster than
-  // doing the math with logs
-  //
-  // honestly it doesn't really matter that
-  // much since in the grand scheme of things
-  // we are copying stuff in memory and that's
-  // going to be the bottleneck every time
-  while (newCapacity < newSize) {
+  while (newCapacity <= max) {
     newCapacity *= 2;
   }
 
@@ -106,6 +17,88 @@ void MyString::ensureCanHold(int newSize) {
 
   capacity = newCapacity;
 }
-void MyString::getline(istream&, char delimit = '\n') {
 
+MyString::MyString() {
+  size = 0;
+  capacity = 10;
+  data = new char[capacity];
+  data = nullptr;
+}
+
+MyString::MyString(const char *str) {
+  size = 0;
+  capacity = 10;
+  data = new char[capacity];
+
+  size = strlen(str);
+  ensureCanHold(size);
+  strcpy(data, str);
+}
+
+MyString::~MyString() { delete[] data; }
+
+MyString::MyString(const MyString &other) {
+  capacity = 10;
+  data = new char[capacity];
+  size = other.size;
+  ensureCanHold(size);
+
+  strcpy(data, other.data);
+}
+
+MyString &MyString::operator=(const MyString &other) {
+  size = other.size;
+  ensureCanHold(size);
+  strcpy(data, other.data);
+
+  return *this;
+}
+
+bool MyString::operator==(const MyString &other) const {
+  if (size != other.size)
+    return false;
+  return strcmp(data, other.data) == 0;
+}
+
+char &MyString::operator[](int index) {
+  return data[index];
+}
+
+void MyString::operator+=(const MyString &other) {
+  if (other.data == nullptr) {
+    return;
+  }
+
+  int newSize = size + other.size;
+  ensureCanHold(newSize);
+  strcat(data, other.data);
+  size = newSize;
+}
+
+MyString MyString::operator+(const MyString &other) const {
+  MyString result(*this);
+  result += other;
+  return result;
+}
+
+void MyString::getline(istream &is, char delimit = '\n') {
+  const int CHUNK_SIZE = 32;
+  char chunk[CHUNK_SIZE];
+  size = 0;
+
+  while (is.getline(chunk, CHUNK_SIZE, delimit)) {
+    int length = strlen(chunk);
+    size += length;
+    ensureCanHold(size);
+    strcat(data, chunk);
+  }
+}
+
+int MyString::length() const { return size; }
+
+ostream &operator<<(ostream &os, MyString &str) {
+  if (str.data != nullptr) {
+    os << str.data;
+  }
+  return os;
 }
