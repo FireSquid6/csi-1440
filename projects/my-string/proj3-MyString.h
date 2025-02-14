@@ -43,7 +43,7 @@ public:
 
   // Reads an entire line from a istream. Lines are terminated with delimit
   // which is newline ‘\n’ by default
-  void getline(istream &, char delimit);
+  void getline(istream &, char delimit = '\n');
 
   // Return the length of the string
   int length() const;

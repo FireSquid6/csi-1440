@@ -2,8 +2,9 @@
 #include <cstring>
 
 void MyString::ensureCanHold(int max) {
-  if (max <= capacity)
+  if (max <= capacity) {
     return;
+  }
 
   int newCapacity = capacity;
   while (newCapacity <= max) {
@@ -11,7 +12,13 @@ void MyString::ensureCanHold(int max) {
   }
 
   char *newData = new char[newCapacity];
-  strcpy(data, newData);
+  int i = 0;
+  int originalSize = strlen(data);
+  for (i = 0; i < originalSize; i++) {
+    newData[i] = data[i];
+  }
+  newData[i] = '\0';
+
   delete[] data;
   data = newData;
 
@@ -22,7 +29,7 @@ MyString::MyString() {
   size = 0;
   capacity = 10;
   data = new char[capacity];
-  data = nullptr;
+  data[0] = '\0';
 }
 
 MyString::MyString(const char *str) {
@@ -31,8 +38,12 @@ MyString::MyString(const char *str) {
   data = new char[capacity];
 
   size = strlen(str);
-  ensureCanHold(size);
-  strcpy(data, str);
+  ensureCanHold(size + 1);
+  int i;
+  for (i = 0; i < size; i++) {
+    data[i] = str[i];
+  }
+  data[i] = '\0';
 }
 
 MyString::~MyString() { delete[] data; }
@@ -60,15 +71,9 @@ bool MyString::operator==(const MyString &other) const {
   return strcmp(data, other.data) == 0;
 }
 
-char &MyString::operator[](int index) {
-  return data[index];
-}
+char &MyString::operator[](int index) { return data[index]; }
 
 void MyString::operator+=(const MyString &other) {
-  if (other.data == nullptr) {
-    return;
-  }
-
   int newSize = size + other.size;
   ensureCanHold(newSize);
   strcat(data, other.data);
@@ -81,24 +86,27 @@ MyString MyString::operator+(const MyString &other) const {
   return result;
 }
 
-void MyString::getline(istream &is, char delimit = '\n') {
+const int CHUNK_SIZE = 32;
+
+void MyString::getline(istream &is, char delimit) {
   const int CHUNK_SIZE = 32;
   char chunk[CHUNK_SIZE];
   size = 0;
+  bool keepReading = true;
 
-  while (is.getline(chunk, CHUNK_SIZE, delimit)) {
-    int length = strlen(chunk);
-    size += length;
-    ensureCanHold(size);
-    strcat(data, chunk);
+  while (keepReading && is.getline(chunk, CHUNK_SIZE, delimit)) {
+    int chunkLen = strlen(chunk);
+    ensureCanHold(size + chunkLen);
+    strcpy(data + size, chunk);
+    size += chunkLen;
+
+    keepReading = !is.eof() && (is.fail() ? (is.clear(), true) : false);
   }
 }
 
 int MyString::length() const { return size; }
 
 ostream &operator<<(ostream &os, MyString &str) {
-  if (str.data != nullptr) {
-    os << str.data;
-  }
+  os << str.data << endl;
   return os;
 }
