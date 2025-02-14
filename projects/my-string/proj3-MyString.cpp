@@ -89,24 +89,23 @@ MyString MyString::operator+(const MyString &other) const {
 const int CHUNK_SIZE = 32;
 
 void MyString::getline(istream &is, char delimit) {
-  const int CHUNK_SIZE = 32;
-  char chunk[CHUNK_SIZE];
+  delete[] data;
+  capacity = 10;
   size = 0;
-  bool keepReading = true;
+  data = new char[capacity];
+  char c;
 
-  while (keepReading && is.getline(chunk, CHUNK_SIZE, delimit)) {
-    int chunkLen = strlen(chunk);
-    ensureCanHold(size + chunkLen);
-    strcpy(data + size, chunk);
-    size += chunkLen;
-
-    keepReading = !is.eof() && (is.fail() ? (is.clear(), true) : false);
+  while (is.get(c) && c != delimit) {
+    ensureCanHold(size + 1);
+    data[size] = c;
+    size++;
   }
+  ensureCanHold(size + 1);
 }
 
 int MyString::length() const { return size; }
 
 ostream &operator<<(ostream &os, MyString &str) {
-  os << str.data << endl;
+  os << str.data;
   return os;
 }

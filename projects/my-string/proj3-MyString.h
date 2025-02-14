@@ -11,6 +11,8 @@ private:
   int capacity;
   char *data;
 
+  // makes sure the array is big enough to support some size
+  //
   void ensureCanHold(int);
 
 public:
