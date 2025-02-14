@@ -1,5 +1,71 @@
+/**
+ * file: proj3-MyString.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: Project 3
+ * due date: 02/15/2025
+ *
+ * date modified: 02/14/2025
+ * - file created
+ *
+ */
+
 #include "proj3-MyString.h"
-#include <cstring>
+
+// not allowed to use cstring functions so I just made them myself
+int strlen(const char *str) {
+  int size = 0;
+
+  while (str[size] != '\0') {
+    size += 1;
+  }
+
+  return size;
+}
+
+char *strcpy(char *dest, const char *src) {
+  int i = 0;
+
+  while (src[i] != '\0') {
+    dest[i] = src[i];
+    i += 1;
+  }
+
+  dest[i] = '\0';
+  return dest;
+}
+
+char *strcat(char *dest, const char *src) {
+  int i = 0;
+  int j = 0;
+  while (dest[i] != '\0') {
+    i++;
+  }
+
+  while (src[j] != '\0') {
+    dest[i] = src[j];
+    j++;
+    i++;
+  }
+
+  dest[i] = '\0';
+
+  return dest;
+}
+
+int strcmp(const char *s1, const char *s2) {
+  int i = 0;
+
+  while (s1[i] != '\0' && s2[i] != '\0') {
+    int diff = s1[i] - s2[i];
+    if (diff != 0) {
+      return diff;
+    }
+    i += 1;
+  }
+
+  return 0;
+}
 
 void MyString::ensureCanHold(int max) {
   if (max <= capacity) {

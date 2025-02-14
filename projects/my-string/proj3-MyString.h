@@ -1,3 +1,14 @@
+/**
+* file: proj3-MyString.h
+* author: Jonathan Deiss
+* course: CSI 1440
+* assignment: Project 3
+* due date: 02/15/2025
+*
+* date modified: 02/14/2025
+* - file created
+*
+*/
 #ifndef MY_STRING_H
 #define MY_STRING_H
 
