@@ -207,7 +207,7 @@ public:
   int length() const;
 
   /**
-   * operator
+   * operator<<
    *
    * Outputs the string to an output stream.
    *
