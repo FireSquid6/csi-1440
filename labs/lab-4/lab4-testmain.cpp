@@ -53,6 +53,8 @@ void testConstructors() {
 }
 
 
+// we test these together since it allows us to also
+// test the resizing up and down features
 void testInsertAndRemove() {
   IntArray list;
   list.insertVal(5);
