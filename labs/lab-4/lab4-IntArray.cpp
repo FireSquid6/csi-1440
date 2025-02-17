@@ -43,12 +43,11 @@ int IntArray::getCapacity() { return capacity; }
 int IntArray::getSize() { return size; }
 
 void IntArray::insertVal(int val) {
-  data[size] = val;
-
   if (size >= capacity) {
     resizeTo(capacity * 2);
   }
 
+  data[size] = val;
   size += 1;
 }
 

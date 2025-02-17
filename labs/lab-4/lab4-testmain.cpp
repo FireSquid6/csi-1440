@@ -22,6 +22,11 @@ void makeDatafile() {
 void readDatafileIntoArray(IntArray *array) {
   ifstream file;
   file.open(DATAFILE_NAME);
+
+  if (!file.is_open()) {
+    return;
+  }
+
   int n;
 
   while (file >> n) {
@@ -65,6 +70,7 @@ void testInsertAndRemove() {
   list.insertVal(4);
 
   int removed = list.removeVal();
+
   assert(removed == 4);
   assert(list.getSize() == 1);
 
@@ -110,7 +116,10 @@ void testPassByValue() {
 
 
 int main() {
-  makeDatafile();
+  // uncomment this to create a non-empty datafile
+  // it will still work with no file, just will copy an
+  // empty array
+  // makeDatafile();
 
   testConstructors();
   testInsertAndRemove();
