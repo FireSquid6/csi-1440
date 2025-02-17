@@ -22,6 +22,8 @@ public:
   void insertVal(int);
   int removeVal();
 
+  // these functions are useful during testing and debugging
+  // not part of the original spec
   void setVal(int val, int i);
   void output(ostream& o);
 };
