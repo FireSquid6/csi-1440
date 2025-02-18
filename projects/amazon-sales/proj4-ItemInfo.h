@@ -29,27 +29,16 @@ private:
 
 public:
   ItemInfo();
-
   void setItemId(const char *num);
-
   void setDescription(const char *cstr);
-
   void setManCost(const char *num);
-
   void setSellPrice(const char *num);
-
   int getItemId();
-
   const char *getDescription();
-
   double getManCost();
-
   double getSellPrice();
-
   void toAmazonJSON(ostream &out);
-
   void displayItemInfo(ostream &out);
-
   double calcProfit();
 };
 
