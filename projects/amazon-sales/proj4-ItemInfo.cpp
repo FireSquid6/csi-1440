@@ -75,27 +75,35 @@ int strToInt(const char *s) {
 }
 
 double strToDouble(const char *s) {
-  double n = 0;
-  int i = 0;
   bool isNegative = false;
-  bool inDecimal = false;
+  int i = 0;
+  double n = 0;
 
   if (s[i] == '-') {
     isNegative = true;
     i++;
   }
 
-  while ((s[i] >= '0' && s[i] <= '9') || s[i] == '.') {
-    if (s[i] == '.') {
-      inDecimal = false;
-    } else {
-      if (inDecimal) {
-
-      } else {
-        n = n * 10 + (s[i] - '0');
-      }
-    }
+  while (s[i] >= '0' && s[i] <= '9') {
+    n = n * 10.0 + (s[i] - '0');
+    i++;
   }
+
+  if (s[i] == '.') {
+    i++;
+    double fraction = 0.0;
+    double divisor = 10.0;
+
+    while (s[i] >= '0' && s[i] <= '9') {
+      fraction += (s[i] - '0') / divisor;
+      divisor *= 10;
+      i++;
+    }
+
+    n += fraction;
+  }
+
+  return isNegative ? n : -n;
 }
 
 ItemInfo::ItemInfo() {
@@ -142,25 +150,59 @@ void ItemInfo::toAmazonJSON(ostream &out) {
 
 double ItemInfo::calcProfit() { return sellPrice - manCost; }
 
-ItemInfoArray::ItemInfoArray() {}
-ItemInfoArray::ItemInfoArray(const ItemInfoArray &) {}
-ItemInfoArray::~ItemInfoArray() {}
-ItemInfoArray &ItemInfoArray::operator=(const ItemInfoArray &) {}
+ItemInfoArray::ItemInfoArray() {
+  size = 0;
+  capacity = 2;
+  data = new ItemInfo[capacity];
+}
+ItemInfoArray::ItemInfoArray(const ItemInfoArray &other) {
+  capacity = other.capacity;
+  size = other.size;
+  data = new ItemInfo[capacity];
 
-ItemInfo& ItemInfoArray::at(int i) {}
-
-int ItemInfoArray::getSize() {
-  return size;
+  for (int i = 0; i < size; i++) {
+    data[i] = other.data[i];
+  }
 }
 
-void ItemInfoArray::push(ItemInfo &item) {
+ItemInfoArray::~ItemInfoArray() { delete[] data; }
 
-  
+ItemInfoArray &ItemInfoArray::operator=(const ItemInfoArray &rhs) {
+  ItemInfoArray *array = new ItemInfoArray(rhs);
+  return *array;
+}
+
+void ItemInfoArray::resizeTo(int newCapacity) {
+  ItemInfo *newData = new ItemInfo[newCapacity];
+
+  for (int i = 0; i < size; i++) {
+    newData[i] = data[i];
+  }
+
+  capacity = newCapacity;
+  delete[] data;
+
+  data = newData;
+}
+
+ItemInfo &ItemInfoArray::at(int i) { return data[i]; }
+
+int ItemInfoArray::getSize() { return size; }
+
+void ItemInfoArray::push(ItemInfo item) {
+  if (size >= capacity) {
+    resizeTo(capacity * 2);
+  }
+
+  data[size] = item;
+  size += 1;
 }
 
 ItemInfo ItemInfoArray::pop() {
-  ItemInfo info = ItemInfo(data[size - 1]);
-
+  ItemInfo info = data[size - 1];
   size--;
+  
+  // TODO - resize smaller?
+
   return info;
 }

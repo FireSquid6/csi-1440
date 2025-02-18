@@ -68,7 +68,7 @@ public:
 
   ItemInfo& at(int i);
   int getSize();
-  void push(ItemInfo& item);
+  void push(ItemInfo item);
   ItemInfo pop();
 };
 
