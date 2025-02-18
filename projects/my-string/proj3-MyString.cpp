@@ -8,7 +8,7 @@
  * date modified: 02/14/2025
  * - file created
  *
- */
+*/
 
 #include "proj3-MyString.h"
 
