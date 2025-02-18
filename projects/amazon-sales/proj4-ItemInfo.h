@@ -59,6 +59,7 @@ public:
   int getSize();
   void push(ItemInfo item);
   ItemInfo pop();
+  void sort();
 };
 
 double strToDouble(const char *num);

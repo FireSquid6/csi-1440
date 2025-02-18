@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// please just let us use these I'm tired of writing them every time
+// please just let us import these I'm tired of rewriting them every time
 int strlen(const char *str) {
   int size = 0;
 
@@ -22,38 +22,6 @@ void strcpy(char *dest, const char *src) {
   }
 
   dest[i] = '\0';
-}
-
-char *strcat(char *dest, const char *src) {
-  int i = 0;
-  int j = 0;
-  while (dest[i] != '\0') {
-    i++;
-  }
-
-  while (src[j] != '\0') {
-    dest[i] = src[j];
-    j++;
-    i++;
-  }
-
-  dest[i] = '\0';
-
-  return dest;
-}
-
-int strcmp(const char *s1, const char *s2) {
-  int i = 0;
-
-  while (s1[i] != '\0' && s2[i] != '\0') {
-    int diff = s1[i] - s2[i];
-    if (diff != 0) {
-      return diff;
-    }
-    i += 1;
-  }
-
-  return 0;
 }
 
 int strToInt(const char *s) {
@@ -191,7 +159,7 @@ int ItemInfoArray::getSize() { return size; }
 
 void ItemInfoArray::push(ItemInfo item) {
   if (size >= capacity) {
-    resizeTo(capacity * 2);
+    resizeTo(capacity + 2);
   }
 
   data[size] = item;
@@ -202,7 +170,10 @@ ItemInfo ItemInfoArray::pop() {
   ItemInfo info = data[size - 1];
   size--;
   
-  // TODO - resize smaller?
 
   return info;
+}
+
+void ItemInfoArray::sort() {
+  // TODO
 }
