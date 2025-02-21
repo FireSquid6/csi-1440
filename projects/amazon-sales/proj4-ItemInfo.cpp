@@ -74,6 +74,29 @@ double strToDouble(const char *s) {
   return isNegative ? n : -n;
 }
 
+void dblToStr(char *cstr, double num) {
+  int i = 0;
+
+  if (num < 0) {
+    cstr[i] = '-';
+    i++;
+  }
+
+  if (num == 0.0) {}
+
+
+}
+
+ostream &printStr(ostream &out, const char *src) {
+  int i = 0;
+
+  while (src[i] != '\0') {
+    out.put(src[i]);
+  }
+
+  return out;
+}
+
 ItemInfo::ItemInfo() {
   itemId = 0;
   *description = '\0';
