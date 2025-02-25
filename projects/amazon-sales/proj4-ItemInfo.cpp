@@ -1,19 +1,50 @@
+#include <cmath>
 #include "proj4-ItemInfo.h"
 
-using namespace std;
+int strToInt(const char *cstr) {
+  int n = 0;
+  int i = 0;
+  int multiplier = 1;
 
-// please just let us import these I'm tired of rewriting them every time
-int strlen(const char *str) {
-  int size = 0;
+  while (cstr[i] != '\0') {
+    i += 1;
+  }
+  i -= 1;
 
-  while (str[size] != '\0') {
-    size += 1;
+  while (i >= 0) {
+    n += (cstr[i] - '0') * multiplier;
+    multiplier *= 10;
+
+    i -= 1;
   }
 
-  return size;
+
+  return n;
 }
 
-void strcpy(char *dest, const char *src) {
+void intToStr(char *cstr, int n) {}
+
+ostream &printCString(ostream &out, const char *src) {
+  int i = 0;
+  while (src[i] != '\0') {
+    out.put(src[i]);
+    i += 1;
+  }
+
+  return out;
+}
+
+int stuCstrLen(const char *src) {
+  int i = 0;
+
+  while (src[i] != '\0') {
+    i += 1;
+  }
+
+  return i;
+}
+
+void stuCstrCpy(char *dest, const char *src) {
   int i = 0;
 
   while (src[i] != '\0') {
@@ -24,77 +55,64 @@ void strcpy(char *dest, const char *src) {
   dest[i] = '\0';
 }
 
-int strToInt(const char *s) {
-  int n = 0;
+void stuDblToCstr(char *cstr, double num) {
+  int n = round(num * 100);
+  int divisor = 1;
   int i = 0;
+  bool putDecimal = false;
 
-  bool isNegative = false;
-  if (s[i] == '-') {
-    isNegative = true;
-    i++;
+  while (divisor <= n) {
+    divisor *= 10;
   }
+  divisor /= 10;
 
-  while (s[i] >= '0' && s[i] <= '9') {
-    n = n * 10 + (s[i] - '0');
-    i++;
-  }
+  while (n > 0) {
+    if (divisor == 100 && putDecimal) {
+      int digit = n / divisor;
 
-  return isNegative ? -n : n;
-}
+      n -= digit * divisor;
+      divisor /= 10;
 
-double strToDouble(const char *s) {
-  bool isNegative = false;
-  int i = 0;
-  double n = 0;
-
-  if (s[i] == '-') {
-    isNegative = true;
-    i++;
-  }
-
-  while (s[i] >= '0' && s[i] <= '9') {
-    n = n * 10.0 + (s[i] - '0');
-    i++;
-  }
-
-  if (s[i] == '.') {
-    i++;
-    double fraction = 0.0;
-    double divisor = 10.0;
-
-    while (s[i] >= '0' && s[i] <= '9') {
-      fraction += (s[i] - '0') / divisor;
-      divisor *= 10;
-      i++;
+      cstr[i] = digit + '0';
+    } else {
+      cstr[i] = '.';
+      putDecimal = true;
     }
 
-    n += fraction;
+    i += 1;
   }
-
-  return isNegative ? n : -n;
+  cstr[i] = '\0';
 }
 
-void dblToStr(char *cstr, double num) {
+double stuCstrToDbl(const char *num) {
+  double n = 0.0;
   int i = 0;
+  int multiplier = 1;
 
-  if (num < 0) {
-    cstr[i] = '-';
-    i++;
+  while (num[i] != '\0') {
+    i += 1;
+  }
+  i -= 1;
+
+  while (i >= 0) {
+    if (num[i] >= '0' && num[i] <= '9') {
+      n += multiplier * (num[i] - '0');
+      multiplier *= 10;
+    } else if (num[i] == '.') {
+      multiplier = 1;
+      int divisor = 1;
+
+      while (divisor <= n) {
+        divisor *= 10;
+      }
+
+      n = divisor / n;
+    }
+
+    i -= 1;
   }
 
-  if (num == 0.0) {}
-
-
-}
-
-ostream &printStr(ostream &out, const char *src) {
-  int i = 0;
-
-  while (src[i] != '\0') {
-    out.put(src[i]);
-  }
-
-  return out;
+  return n;
 }
 
 ItemInfo::ItemInfo() {
@@ -106,97 +124,18 @@ ItemInfo::ItemInfo() {
 
 void ItemInfo::setItemId(const char *num) { itemId = strToInt(num); }
 
-void ItemInfo::setDescription(const char *desc) { strcpy(description, desc); }
+void ItemInfo::setDescription(const char *cstr) {
+  stuCstrCpy(description, cstr);
+}
 
-void ItemInfo::setManCost(const char *num) { manCost = strToDouble(num); }
+void ItemInfo::setManCost(const char *num) { manCost = stuCstrToDbl(num); }
 
-void ItemInfo::setSellPrice(const char *num) { sellPrice = strToDouble(num); }
-
-const char *ItemInfo::getDescription() { return description; }
-
-double ItemInfo::getManCost() { return manCost; }
+void ItemInfo::setSellPrice(const char *num) { sellPrice = stuCstrToDbl(num); }
 
 double ItemInfo::getSellPrice() { return sellPrice; }
 
-void ItemInfo::displayItemInfo(ostream &out) {
-  out << "itemId: " << itemId << endl;
-  out << "description: " << description << endl;
-  out << "manCost: " << manCost << endl;
-  out << "sellPrice: " << sellPrice << endl;
-  out << "calculatedProfit: " << calcProfit() << endl;
-  // TODO
-}
+void ItemInfo::toAmazonJSON(ostream &out) {}
 
-void ItemInfo::toAmazonJSON(ostream &out) {
-  out << '{' << endl << '\t' << '\t';
-  out << "itemId: " << itemId << ',';
-  out << endl << '\t' << '\t';
-  out << "description: " << '"' << description << "\",";
-  out << endl << '\t' << '\t';
-  out << "manPrice: " << manCost << ',';
-  out << endl << '\t' << '\t';
-  out << "sellPrice: " << sellPrice;
-  out << endl << '\t' << '}' << endl;
-}
+void ItemInfo::displayItemInfo(ostream &out) {}
 
 double ItemInfo::calcProfit() { return sellPrice - manCost; }
-
-ItemInfoArray::ItemInfoArray() {
-  size = 0;
-  capacity = 2;
-  data = new ItemInfo[capacity];
-}
-ItemInfoArray::ItemInfoArray(const ItemInfoArray &other) {
-  capacity = other.capacity;
-  size = other.size;
-  data = new ItemInfo[capacity];
-
-  for (int i = 0; i < size; i++) {
-    data[i] = other.data[i];
-  }
-}
-
-ItemInfoArray::~ItemInfoArray() { delete[] data; }
-
-ItemInfoArray &ItemInfoArray::operator=(const ItemInfoArray &rhs) {
-  ItemInfoArray *array = new ItemInfoArray(rhs);
-  return *array;
-}
-
-void ItemInfoArray::resizeTo(int newCapacity) {
-  ItemInfo *newData = new ItemInfo[newCapacity];
-
-  for (int i = 0; i < size; i++) {
-    newData[i] = data[i];
-  }
-
-  capacity = newCapacity;
-  delete[] data;
-
-  data = newData;
-}
-
-ItemInfo &ItemInfoArray::at(int i) { return data[i]; }
-
-int ItemInfoArray::getSize() { return size; }
-
-void ItemInfoArray::push(ItemInfo item) {
-  if (size >= capacity) {
-    resizeTo(capacity + 2);
-  }
-
-  data[size] = item;
-  size += 1;
-}
-
-ItemInfo ItemInfoArray::pop() {
-  ItemInfo info = data[size - 1];
-  size--;
-  
-
-  return info;
-}
-
-void ItemInfoArray::sort() {
-  // TODO
-}
