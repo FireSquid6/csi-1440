@@ -1,5 +1,5 @@
-#include <cmath>
 #include "proj4-ItemInfo.h"
+#include <cmath>
 
 int strToInt(const char *cstr) {
   int n = 0;
@@ -18,11 +18,8 @@ int strToInt(const char *cstr) {
     i -= 1;
   }
 
-
   return n;
 }
-
-void intToStr(char *cstr, int n) {}
 
 ostream &printCString(ostream &out, const char *src) {
   int i = 0;
@@ -56,63 +53,60 @@ void stuCstrCpy(char *dest, const char *src) {
 }
 
 void stuDblToCstr(char *cstr, double num) {
-  int n = round(num * 100);
-  int divisor = 1;
-  int i = 0;
-  bool putDecimal = false;
+  int intPart = (int)num;
+  double fractPart = num - intPart;
 
-  while (divisor <= n) {
-    divisor *= 10;
-  }
-  divisor /= 10;
+  fractPart = round(fractPart * 100) / 100.0;
 
-  while (n > 0) {
-    if (divisor == 100 && putDecimal) {
-      int digit = n / divisor;
+  char intStr[20];
+  int intIdx = 0;
 
-      n -= digit * divisor;
-      divisor /= 10;
-
-      cstr[i] = digit + '0';
-    } else {
-      cstr[i] = '.';
-      putDecimal = true;
+  if (intPart == 0) {
+    intStr[intIdx] = '0';
+    intIdx += 1;
+  } else {
+    while (intPart > 0) {
+      intStr[intIdx] = '0' + (intPart % 10);
+      intIdx += 1;
+      intPart /= 10;
     }
-
-    i += 1;
   }
-  cstr[i] = '\0';
+
+  int cstrIdx = 0;
+  for (int i = intIdx - 1; i >= 0; i--) {
+    cstr[cstrIdx++] = intStr[i];
+  }
+
+  int afterDecimal = round(fractPart * 100);
+
+  cstr[cstrIdx] = '.';
+  cstr[cstrIdx + 1] = '0' + (afterDecimal / 10);
+  cstr[cstrIdx + 2] = '0' + (afterDecimal % 10);
+  cstr[cstrIdx + 3] = '\0';
 }
 
 double stuCstrToDbl(const char *num) {
-  double n = 0.0;
+  double result = 0.0;
   int i = 0;
-  int multiplier = 1;
-
+  double decimalPlace = 0.0;
+  bool hasDecimal = false;
+  
   while (num[i] != '\0') {
-    i += 1;
-  }
-  i -= 1;
-
-  while (i >= 0) {
     if (num[i] >= '0' && num[i] <= '9') {
-      n += multiplier * (num[i] - '0');
-      multiplier *= 10;
-    } else if (num[i] == '.') {
-      multiplier = 1;
-      int divisor = 1;
-
-      while (divisor <= n) {
-        divisor *= 10;
+      if (!hasDecimal) {
+        result = result * 10.0 + (num[i] - '0');
+      } else {
+        decimalPlace *= 0.1;
+        result += (num[i] - '0') * decimalPlace;
       }
-
-      n = divisor / n;
+    } else if (num[i] == '.') {
+      hasDecimal = true;
+      decimalPlace = 1.0;
     }
-
-    i -= 1;
+    i++;
   }
-
-  return n;
+  
+  return result;
 }
 
 ItemInfo::ItemInfo() {

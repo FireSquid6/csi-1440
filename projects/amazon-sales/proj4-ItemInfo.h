@@ -281,4 +281,6 @@ int stuCstrLen(const char *src);
  */
 ostream& printCString(ostream &out, const char *src);
 
+int strToInt(const char *cstr);
+
 #endif
