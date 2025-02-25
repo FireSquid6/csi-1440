@@ -104,6 +104,42 @@ void testDblToCstr() {
   cout << "testDblToCstr PASSED" << endl;
 }
 
+void testPrintCString() {
+  stringstream ss;
+  
+  const char* emptyStr = "";
+  printCString(ss, emptyStr);
+  assert(ss.str() == "");
+  ss.str("");
+  
+  const char* simpleStr = "hello";
+  printCString(ss, simpleStr);
+  assert(ss.str() == "hello");
+  ss.str("");
+  
+  const char* longStr = "This is a longer test string with spaces!";
+  printCString(ss, longStr);
+  assert(ss.str() == "This is a longer test string with spaces!");
+  ss.str("");
+  
+  const char* specialStr = "Special@#$%^&*()_+";
+  printCString(ss, specialStr);
+  assert(ss.str() == "Special@#$%^&*()_+");
+  ss.str("");
+  
+  const char* numStr = "12345";
+  printCString(ss, numStr);
+  assert(ss.str() == "12345");
+  ss.str("");
+  
+  const char* multilineStr = "Line 1\nLine 2\nLine 3";
+  printCString(ss, multilineStr);
+  assert(ss.str() == "Line 1\nLine 2\nLine 3");
+  ss.str("");
+  
+  cout << "testPrintCString PASSED" << endl;
+}
+
 void testCstrToDbl() {
   assert(fabs(stuCstrToDbl("123.45") - 123.45) < 0.0001);
   
@@ -130,6 +166,7 @@ int main() {
   testStrToInt();
   testDblToCstr();
   testCstrToDbl();
+  testPrintCString();
 
   return 0;
 }
