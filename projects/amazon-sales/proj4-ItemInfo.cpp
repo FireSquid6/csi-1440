@@ -175,8 +175,81 @@ void ItemInfo::setSellPrice(const char *num) { sellPrice = stuCstrToDbl(num); }
 
 double ItemInfo::getSellPrice() { return sellPrice; }
 
-void ItemInfo::toAmazonJSON(ostream &out) {}
+int ItemInfo::getItemId() {
+  return itemId;
+}
 
-void ItemInfo::displayItemInfo(ostream &out) {}
+double ItemInfo::getManCost() {
+  return manCost;
+}
+
+const char* ItemInfo::getDescription() {
+  return description;
+}
+
+// only does the inner object. Outer object and {} has
+// to be handled by something else because the
+// amazon """JSON""" spec isn't actually JSON and
+// arrays require "firstItem", "secondItem", etc.
+void ItemInfo::toAmazonJSON(ostream &out) {
+  char itemIdString[20];
+  char manCostStr[20];
+  char sellPriceStr[20];
+
+  intToStr(itemIdString, itemId);
+  stuDblToCstr(manCostStr, manCost);
+  stuDblToCstr(sellPriceStr, sellPrice);
+
+  printCString(out, "\t\t\"itemId:\" ");
+  printCString(out, itemIdString);
+  printCString(out, ",\n");
+
+  printCString(out, "\t\t\"description:\" ");
+  printCString(out, description);
+  printCString(out, ",\n");
+
+  // it's manPrice in the JSON spec despite being 
+  // manCost everywhere else. I don't make the rules.
+  printCString(out, "\t\t\"manPrice:\" ");
+  printCString(out, manCostStr);
+  printCString(out, ",\n");
+
+  printCString(out, "\t\t\"sellPrice:\" ");
+  printCString(out, sellPriceStr);
+  printCString(out, "\n");
+}
+
+void ItemInfo::displayItemInfo(ostream &out) {
+  // numbers will never be longer than this
+  char itemIdString[20];
+  char manCostStr[20];
+  char sellPriceStr[20];
+  char profitStr[20];
+
+  intToStr(itemIdString, itemId);
+  stuDblToCstr(manCostStr, manCost);
+  stuDblToCstr(sellPriceStr, sellPrice);
+  stuDblToCstr(profitStr, calcProfit());
+
+  printCString(out, "itemId: ");
+  printCString(out, itemIdString);
+  out.put('\n');
+
+  printCString(out, "description: ");
+  printCString(out, description);
+  out.put('\n');
+
+  printCString(out, "manCost: ");
+  printCString(out, manCostStr);
+  out.put('\n');
+
+  printCString(out, "sellPrice: ");
+  printCString(out, sellPriceStr);
+  out.put('\n');
+
+  printCString(out, "calculatedProfit: ");
+  printCString(out, profitStr);
+  out.put('\n');
+}
 
 double ItemInfo::calcProfit() { return sellPrice - manCost; }

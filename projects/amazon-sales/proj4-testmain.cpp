@@ -164,6 +164,24 @@ void testCstrToDbl() {
   printCString(cout, "testCstrToDbl PASSED\n");
 }
 
+void testItemInfoData() {
+  ItemInfo itemInfo;
+
+  itemInfo.setDescription("hello, world!");
+  itemInfo.setSellPrice("43.21");
+  itemInfo.setManCost("10.00");
+  itemInfo.setItemId("5678");
+
+  assert(itemInfo.getItemId() == 5678);
+  assert(fabs(itemInfo.getSellPrice() - 43.21) < 0.0001);
+  assert(fabs(itemInfo.getManCost() - 10.0) < 0.0001);
+  assert(fabs(itemInfo.calcProfit() - 33.21) < 0.0001);
+  assert(strcmp(itemInfo.getDescription(), "hello, world!") == 0);
+
+
+  printCString(cout, "testItemInfoData PASSED\n");
+}
+
 int main() {
   testStrCmp();
   testStrCpy();
@@ -172,6 +190,7 @@ int main() {
   testDblToCstr();
   testCstrToDbl();
   testPrintCString();
+  testItemInfoData();
 
   return 0;
 }
