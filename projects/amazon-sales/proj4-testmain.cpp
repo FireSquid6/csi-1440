@@ -3,13 +3,17 @@
 #include <iostream>
 #include <cmath>
 
-// we use the cstring library in this test file to ensure that my
-// implementations of the cstring library work properly
-//
-// not sure if this is allowed or not but I feel like its within
-// the spirit of showing that I know how to implement the cstring
-// functions
-#include <cstring>
+// my own implementation of strcmp
+void testStrCmp() {
+  const char* str1 = "hello, world!";
+  const char* str2 = "hello, world!";
+  const char* str3 = "goodbye, world!";
+
+  assert(strcmp(str1, str2) == 0);
+  assert(strcmp(str1, str3) != 0);
+
+  printCString(cout, "testStrCmp PASSED\n");
+}
 
 void testStrLen() {
   const char* emptyStr = "";
@@ -24,7 +28,7 @@ void testStrLen() {
   const char* numStr = "12345";
   assert(stuCstrLen(numStr) == 5);
   
-  cout << "testStrLen PASSED" << endl;
+  printCString(cout, "testStrLen PASSED\n");
 }
 
 void testStrCpy() {
@@ -52,7 +56,7 @@ void testStrCpy() {
   stuCstrCpy(specialDest, specialStr);
   assert(strcmp(specialDest, specialStr) == 0);
   
-  cout << "testStrCpy PASSED" << endl;
+  printCString(cout, "testStrCpy PASSED\n");
 }
 
 void testStrToInt() {
@@ -77,7 +81,7 @@ void testStrToInt() {
   const char* allZeros = "000";
   assert(strToInt(allZeros) == 0);
   
-  cout << "testStrToInt PASSED" << endl;
+  printCString(cout, "testStrToInt PASSED\n");
 }
 
 void testDblToCstr() {
@@ -101,7 +105,7 @@ void testDblToCstr() {
   stuDblToCstr(result, 100.00);
   assert(strcmp(result, "100.00") == 0);
   
-  cout << "testDblToCstr PASSED" << endl;
+  printCString(cout, "testDblToCstr PASSED\n");
 }
 
 void testPrintCString() {
@@ -137,7 +141,7 @@ void testPrintCString() {
   assert(ss.str() == "Line 1\nLine 2\nLine 3");
   ss.str("");
   
-  cout << "testPrintCString PASSED" << endl;
+  printCString(cout, "testPrintCString PASSED\n");
 }
 
 void testCstrToDbl() {
@@ -157,10 +161,11 @@ void testCstrToDbl() {
   
   assert(fabs(stuCstrToDbl("1234.56") - 1234.56) < 0.0001);
   
-  cout << "testCstrToDbl PASSED" << endl;
+  printCString(cout, "testCstrToDbl PASSED\n");
 }
 
 int main() {
+  testStrCmp();
   testStrCpy();
   testStrLen();
   testStrToInt();

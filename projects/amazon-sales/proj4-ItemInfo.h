@@ -283,4 +283,7 @@ ostream& printCString(ostream &out, const char *src);
 
 int strToInt(const char *cstr);
 
+// needed since we use
+int strcmp(const char *s1, const char *s2);
+
 #endif
