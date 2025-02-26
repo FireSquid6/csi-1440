@@ -204,9 +204,9 @@ void ItemInfo::toAmazonJSON(ostream &out) {
   printCString(out, itemIdString);
   printCString(out, ",\n");
 
-  printCString(out, "\t\t\"description:\" ");
+  printCString(out, "\t\t\"description:\" \"");
   printCString(out, description);
-  printCString(out, ",\n");
+  printCString(out, "\",\n");
 
   // it's manPrice in the JSON spec despite being 
   // manCost everywhere else. I don't make the rules.

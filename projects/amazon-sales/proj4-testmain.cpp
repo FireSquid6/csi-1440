@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 
+#include <sstream>
+
 // my own implementation of strcmp
 void testStrCmp() {
   const char* str1 = "hello, world!";
@@ -182,6 +184,43 @@ void testItemInfoData() {
   printCString(cout, "testItemInfoData PASSED\n");
 }
 
+void testItemInfoDisplay() {
+  ItemInfo itemInfo;
+
+  itemInfo.setDescription("item thingy");
+  itemInfo.setSellPrice("20");
+  itemInfo.setManCost("5");
+  itemInfo.setItemId("45");
+
+  // don't think there's really another way to test
+  // this other than using stringstreams.
+  stringstream expectedJson;
+  stringstream expectedInfo;
+  stringstream recievedJson;
+  stringstream recievedInfo;
+
+  expectedInfo << "itemId: 45" << endl;
+  expectedInfo << "description: item thingy" << endl;
+  expectedInfo << "manCost: 5.00" << endl;
+  expectedInfo << "sellPrice: 20.00" << endl;
+  expectedInfo << "calculatedProfit: 15.00" << endl;
+
+  expectedJson << "\t\t\"itemId:\" 45," << endl;
+  expectedJson << "\t\t\"description:\" \"item thingy\"," << endl;
+  expectedJson << "\t\t\"manPrice:\" 5.00," << endl;
+  expectedJson << "\t\t\"sellPrice:\" 20.00" << endl;
+
+  itemInfo.toAmazonJSON(recievedJson);
+  itemInfo.displayItemInfo(recievedInfo);
+
+  assert(recievedInfo.str() == expectedInfo.str());
+  assert(recievedJson.str() == expectedJson.str());
+
+  printCString(cout, "testItemInfoDisplay PASSED\n");
+
+}
+
+
 int main() {
   testStrCmp();
   testStrCpy();
@@ -191,6 +230,7 @@ int main() {
   testCstrToDbl();
   testPrintCString();
   testItemInfoData();
+  testItemInfoDisplay();
 
   return 0;
 }
