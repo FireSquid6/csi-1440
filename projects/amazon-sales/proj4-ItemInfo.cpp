@@ -21,7 +21,39 @@ int strToInt(const char *cstr) {
   return n;
 }
 
-// this is needed to test other functions
+// this is needed since the format function expects the id to be printed
+// without decimal places. I would like for the double printing function
+// to always include .00 since it makes it clear that it's a double
+//
+// this will fail to handle negative numbers
+void intToStr(char *cstr, int n) {
+  // edge case
+  if (n == 0) {
+    cstr[0] = '0';
+    cstr[1] = '\0';
+    return;
+  }
+
+
+  int temp = n;
+  int length = 0;
+  int i = 0;
+  while (temp > 0) {
+    length++;
+    temp /= 10;
+  }
+
+  int end = i + length;
+
+  cstr[end] = '\0';
+
+  while (n > 0) {
+    cstr[--end] = '0' + (n % 10);
+    n /= 10;
+  }
+}
+
+// this is needed to test other functions. Otherwise is not used
 int strcmp(const char *s1, const char *s2) {
   int i = 0;
 
@@ -105,7 +137,7 @@ double stuCstrToDbl(const char *num) {
   int i = 0;
   double decimalPlace = 0.0;
   bool hasDecimal = false;
-  
+
   while (num[i] != '\0') {
     if (num[i] >= '0' && num[i] <= '9') {
       if (!hasDecimal) {
@@ -120,7 +152,7 @@ double stuCstrToDbl(const char *num) {
     }
     i++;
   }
-  
+
   return result;
 }
 
