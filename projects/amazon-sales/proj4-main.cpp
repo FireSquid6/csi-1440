@@ -39,6 +39,7 @@ int main() {
   int capacity = 2;
   int size = 0;
   ItemInfo* array = new ItemInfo[capacity];
+  const char* const ordinals[] = {"firstItem", "secondItem", "thirdItem", "fourthItem", "fifthItem"};
 
 
   while (file.get(c)) {
