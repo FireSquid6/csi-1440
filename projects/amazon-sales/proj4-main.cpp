@@ -1,6 +1,5 @@
 #include "proj4-ItemInfo.h"
 #include <fstream>
-#include <vector>
 #include <iostream>
 
 // only works for 40 characters
@@ -40,7 +39,6 @@ int main() {
   int capacity = 2;
   int size = 0;
   ItemInfo* array = new ItemInfo[capacity];
-  vector<ItemInfo> vec;
 
 
   while (file.get(c)) {
@@ -66,8 +64,13 @@ int main() {
       info.setManCost(manCost);
       info.setSellPrice(sellCost);
 
-      vec.push_back(info);
+      if (size == capacity) {
+        capacity += 2;
+        array = resizeItemInfoArray(array, size, capacity);
+      }
 
+      array[size] = info;
+      size += 1;
       i = 0;
     }
   }
@@ -75,9 +78,9 @@ int main() {
   file.close();
 
 
-  for (int i = 0 ; i < vec.size(); i++) {
+  for (int i = 0 ; i < size; i++) {
     cout << "ITEM " << i << endl;
-    vec.at(i).displayItemInfo(cout);
+    array[i].displayItemInfo(cout);
     cout << endl;
   }
 
