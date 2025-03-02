@@ -283,7 +283,7 @@ ostream& printCString(ostream &out, const char *src);
 
 int strToInt(const char *cstr);
 
-// needed since we use
+// needed for testing
 int strcmp(const char *s1, const char *s2);
 
 #endif
