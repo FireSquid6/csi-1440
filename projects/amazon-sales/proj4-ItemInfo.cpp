@@ -1,25 +1,17 @@
+/**
+ * file: proj4-ItemInfo.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: project 4
+ * due date: 03/02/2025
+ *
+ * date modified:  03/02/2025
+ *    - file created
+ *
+ * Provide4s the implementation for ItemInfo
+ */
 #include "proj4-ItemInfo.h"
 #include <cmath>
-
-int strToInt(const char *cstr) {
-  int n = 0;
-  int i = 0;
-  int multiplier = 1;
-
-  while (cstr[i] != '\0') {
-    i += 1;
-  }
-  i -= 1;
-
-  while (i >= 0) {
-    n += (cstr[i] - '0') * multiplier;
-    multiplier *= 10;
-
-    i -= 1;
-  }
-
-  return n;
-}
 
 // this is needed since the format function expects the id to be printed
 // without decimal places. I would like for the double printing function
@@ -51,21 +43,6 @@ void intToStr(char *cstr, int n) {
     cstr[--end] = '0' + (n % 10);
     n /= 10;
   }
-}
-
-// this is needed to test other functions. Otherwise is not used
-int strcmp(const char *s1, const char *s2) {
-  int i = 0;
-
-  while (s1[i] != '\0' && s2[i] != '\0') {
-    int diff = s1[i] - s2[i];
-    if (diff != 0) {
-      return diff;
-    }
-    i += 1;
-  }
-
-  return 0;
 }
 
 ostream &printCString(ostream &out, const char *src) {
@@ -156,24 +133,25 @@ double stuCstrToDbl(const char *num) {
   return result;
 }
 
-ItemInfo::ItemInfo() {
-  itemId = 0;
-  *description = '\0';
-  manCost = 0.0;
-  sellPrice = 0.0;
+void ItemInfo::setItemId(const char *num) { 
+  itemId = stuCstrToDbl(num); 
 }
-
-void ItemInfo::setItemId(const char *num) { itemId = strToInt(num); }
 
 void ItemInfo::setDescription(const char *cstr) {
   stuCstrCpy(description, cstr);
 }
 
-void ItemInfo::setManCost(const char *num) { manCost = stuCstrToDbl(num); }
+void ItemInfo::setManCost(const char *num) { 
+  manCost = stuCstrToDbl(num); 
+}
 
-void ItemInfo::setSellPrice(const char *num) { sellPrice = stuCstrToDbl(num); }
+void ItemInfo::setSellPrice(const char *num) { 
+  sellPrice = stuCstrToDbl(num); 
+}
 
-double ItemInfo::getSellPrice() { return sellPrice; }
+double ItemInfo::getSellPrice() { 
+  return sellPrice; 
+}
 
 int ItemInfo::getItemId() {
   return itemId;
@@ -252,4 +230,6 @@ void ItemInfo::displayItemInfo(ostream &out) {
   out.put('\n');
 }
 
-double ItemInfo::calcProfit() { return sellPrice - manCost; }
+double ItemInfo::calcProfit() { 
+  return sellPrice - manCost; 
+}

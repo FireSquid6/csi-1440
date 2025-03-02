@@ -26,7 +26,12 @@ private:
     double manCost;
     double sellPrice;
 public:
-    ItemInfo();
+    ItemInfo() {
+        itemId = 0;
+        *description = '\0';
+        manCost = 0.0;
+        sellPrice = 0.0;
+    }
     
     /**
      * setItemId
@@ -216,7 +221,6 @@ public:
  */
 double stuCstrToDbl(const char *num);
 
-
 /**
  * stuDblToCstr
  *
@@ -280,10 +284,5 @@ int stuCstrLen(const char *src);
  *      stream: none
  */
 ostream& printCString(ostream &out, const char *src);
-
-int strToInt(const char *cstr);
-
-// needed for testing
-int strcmp(const char *s1, const char *s2);
 
 #endif

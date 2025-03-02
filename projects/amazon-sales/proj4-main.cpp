@@ -1,8 +1,21 @@
+/**
+ * file: proj4-main.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: project 4
+ * due date: 03/02/2025
+ *
+ * date modified:  03/02/2025
+ *    - file created
+ *
+ * The main program that sorts a csv file
+ */
 #include "proj4-ItemInfo.h"
 #include <fstream>
 #include <iostream>
 
-// only works for 40 characters
+// only works for 40 characters. The description of ItemInfo makes this
+// assumption as well so I think it's a fair one
 void customGetline(char *buffer, char *line, int *bufferPosition,
                     char delimit) {
   int i = 0;
@@ -37,7 +50,6 @@ void sortByProft(ItemInfo* array, int size) {
   }
 }
 
-// assumes no part is longer than 40 chars
 int main() {
   ifstream file;
   file.open("proj4-productServices.csv");
@@ -102,11 +114,7 @@ int main() {
 
     printCString(cout, "\t}");
 
-    // JSON doesn't support trailing commas. Even though it probably
-    // isn't a big deal if I put them there since we're not actually
-    // outputting JSON but a gross molestation of a pretty good format
-    // I'll still make sure to check and not put trailing commas in
-    // the spirit of JSON
+    // no trailing commas on the last one
     if (i != 4) {
       cout.put(',');
     }
@@ -114,7 +122,6 @@ int main() {
   }
 
   // output the last ] of the JSON
-  // (even though this isn't how JSON works)
   cout.put(']');
   cout.put('\n');
 

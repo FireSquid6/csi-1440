@@ -1,3 +1,15 @@
+/**
+ * file: proj4-testmain.cpp
+ * author: Jonathan Deiss
+ * course: CSI 1440
+ * assignment: project 4
+ * due date: 03/02/2025
+ *
+ * date modified:  03/02/2025
+ *    - file created
+ *
+ * provides tests for the functions in proj4-ItemInfo.h
+ */
 #include "proj4-ItemInfo.h"
 #include <cassert>
 #include <iostream>
@@ -5,7 +17,21 @@
 
 #include <sstream>
 
-// my own implementation of strcmp
+// needed to test other functions
+int strcmp(const char *s1, const char *s2) {
+  int i = 0;
+
+  while (s1[i] != '\0' && s2[i] != '\0') {
+    int diff = s1[i] - s2[i];
+    if (diff != 0) {
+      return diff;
+    }
+    i += 1;
+  }
+
+  return 0;
+}
+
 void testStrCmp() {
   const char* str1 = "hello, world!";
   const char* str2 = "hello, world!";
@@ -59,31 +85,6 @@ void testStrCpy() {
   assert(strcmp(specialDest, specialStr) == 0);
   
   printCString(cout, "testStrCpy PASSED\n");
-}
-
-void testStrToInt() {
-  const char* singleDigit = "5";
-  assert(strToInt(singleDigit) == 5);
-  
-  const char* multiDigit = "123";
-  assert(strToInt(multiDigit) == 123);
-  
-  const char* zero = "0";
-  assert(strToInt(zero) == 0);
-  
-  const char* largeNum = "9876";
-  assert(strToInt(largeNum) == 9876);
-  
-  const char* veryLargeNum = "123456789";
-  assert(strToInt(veryLargeNum) == 123456789);
-  
-  const char* leadingZeros = "00123";
-  assert(strToInt(leadingZeros) == 123);
-  
-  const char* allZeros = "000";
-  assert(strToInt(allZeros) == 0);
-  
-  printCString(cout, "testStrToInt PASSED\n");
 }
 
 void testDblToCstr() {
@@ -225,7 +226,6 @@ int main() {
   testStrCmp();
   testStrCpy();
   testStrLen();
-  testStrToInt();
   testDblToCstr();
   testCstrToDbl();
   testPrintCString();
