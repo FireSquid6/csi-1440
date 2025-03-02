@@ -39,8 +39,8 @@ int main() {
   int capacity = 2;
   int size = 0;
   ItemInfo* array = new ItemInfo[capacity];
-  const char* const ordinals[] = {"firstItem", "secondItem", "thirdItem", "fourthItem", "fifthItem"};
 
+  const char* const ordinalItems[] = {"firstItem", "secondItem", "thirdItem", "fourthItem", "fifthItem"};
 
   while (file.get(c)) {
     buffer[i] = c;
@@ -78,12 +78,34 @@ int main() {
 
   file.close();
 
+  // TODO - sort the array
 
-  for (int i = 0 ; i < size; i++) {
-    cout << "ITEM " << i << endl;
-    array[i].displayItemInfo(cout);
-    cout << endl;
+  // add the first bit of the JSON
+  printCString(cout, "\"DeissStore\": [\n");
+
+  for (int i = 0 ; i < 5; i++) {
+    printCString(cout, "\t\"");
+    printCString(cout, ordinalItems[i]);
+    printCString(cout, "\": {\n");
+    array[i].toAmazonJSON(cout);
+
+    printCString(cout, "\t}");
+
+    // JSON doesn't support trailing commas. Even though it probably
+    // isn't a big deal if I put them there since we're not actually
+    // outputting JSON but a gross molestation of a pretty good format
+    // I'll still make sure to check and not put trailing commas in
+    // the spirit of JSON
+    if (i != 4) {
+      cout.put(',');
+    }
+    cout.put('\n');
   }
+
+  // output the last ] of the JSON
+  // (even though this isn't how JSON works)
+  cout.put(']');
+  cout.put('\n');
 
   return 0;
 }
