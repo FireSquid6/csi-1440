@@ -27,6 +27,16 @@ ItemInfo* resizeItemInfoArray(ItemInfo* original, int size, int newCapacity) {
   return newArray;
 }
 
+void sortByProft(ItemInfo* array, int size) {
+  for (int i = 0; i < size - 1; i++) {
+    for (int j = 0; j < size - i - 1; j++) {
+      if (array[j].calcProfit() < array[j + 1].calcProfit()) {
+        swap(array[j], array[j + 1]);
+      }
+    }
+  }
+}
+
 // assumes no part is longer than 40 chars
 int main() {
   ifstream file;
@@ -78,7 +88,8 @@ int main() {
 
   file.close();
 
-  // TODO - sort the array
+  sortByProft(array, size);
+
 
   // add the first bit of the JSON
   printCString(cout, "\"DeissStore\": [\n");
@@ -106,6 +117,8 @@ int main() {
   // (even though this isn't how JSON works)
   cout.put(']');
   cout.put('\n');
+
+  delete[] array;
 
   return 0;
 }
