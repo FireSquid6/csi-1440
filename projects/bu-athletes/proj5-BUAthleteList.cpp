@@ -1,4 +1,3 @@
-
 #include "proj5-BUAthleteList.h"
 
 
@@ -55,7 +54,11 @@ int BUAthleteList::findById(int id) {
 }
 
 void BUAthleteList::sortByID() {
-  // TODO - quicksort
+  for (int i = 0; i < size; i++) {
+    for (int j = i; j < size - 1; j++) {
+
+    }
+  }
 
 }
 void BUAthleteList::sortByPosition() {
