@@ -1,4 +1,4 @@
-#include "Dogs1.h"
+#include "Dogs2.h"
 
 using namespace std;
 

@@ -28,10 +28,18 @@ public:
 class BostonTerrier : public Dog {
 public:
   BostonTerrier( string n ) : Dog( n ) { }
+
+  void Bark() {
+    cout << "Arf-Arf" << endl;
+  }
 };
 
 class Heinz57 : public Dog {
 public:
   Heinz57( string n ) : Dog( n ) { }
+
+  void Bark() {
+    cout << "Bow-Wow" << endl;
+  }
 };
 #endif
