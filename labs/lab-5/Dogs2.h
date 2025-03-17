@@ -1,5 +1,5 @@
-#ifndef DOGS_1_H
-#define DOGS_1_H
+#ifndef DOGS_2_H
+#define DOGS_2_H
 
 #include <iostream>
 #include <string>

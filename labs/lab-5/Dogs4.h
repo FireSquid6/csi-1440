@@ -1,5 +1,5 @@
-#ifndef DOGS_3_H
-#define DOGS_3_H
+#ifndef DOGS_4_H
+#define DOGS_4_H
 
 #include <iostream>
 #include <string>
@@ -21,6 +21,14 @@ public:
 
   void Bark() {
     cout << "Bow-Wow" << endl;
+  }
+
+  void Wimper() {
+    cout << "Rrrrrrrrrr" << endl;
+  }
+
+  void Pant() {
+    cout << "Ah-ha-ha-ha-ha" << endl;
   }
 };
 
