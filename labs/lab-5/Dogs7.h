@@ -1,5 +1,5 @@
-#ifndef DOGS_5_H
-#define DOGS_5_H
+#ifndef DOGS_7_H
+#define DOGS_7_H
 
 #include <iostream>
 #include <string>
@@ -57,6 +57,33 @@ public:
 
   void Bark() {
     cout << "Oh, my darlin" << endl;
+  }
+};
+
+class Poodle : public Dog {
+public:
+  Poodle( string n ) : Dog( n ) {}
+
+  void Bark() {
+    cout << "Oui-Oui" << endl;
+  }
+};
+
+class ScoobyDoo : public Dog {
+public:
+  ScoobyDoo( string n ) : Dog( n ) {}
+
+  void Bark() {
+    cout << "Ruh-Roh" << endl;
+  }
+};
+
+class GermanSheperd : public Dog {
+public:
+  GermanSheperd( string n ) : Dog( n ) {}
+
+  void Bark() {
+    cout << "I see nothing!" << endl;
   }
 };
 

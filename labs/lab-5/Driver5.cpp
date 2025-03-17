@@ -20,36 +20,28 @@ void BegForFood(Dog &dog) {
 
 int main() {
   Dog dog("dog");
-  BostonTerrier terrier("terrier");
-  Heinz57 heinz("heinz");
-  HuckleberryHound hound("hound");
-  Poodle poodle("poodle");
-  ScoobyDoo scooby("scooby");
-  GermanSheperd shepherd("shepherd");
+  Dog aDog("Fido");
+  cout << aDog.getName() << " says ";
+  aDog.Bark();
+  WalkTheDog(aDog);
+  BegForFood(aDog);
+  cout << endl;
 
+  BostonTerrier aBoston("Dixie");
+  cout << aBoston.getName() << " says ";
+  aBoston.Bark();
+  WalkTheDog(aBoston);
+  BegForFood(aBoston);
+  cout << endl;
 
-  WalkTheDog(dog);
-  BegForFood(dog);
+  Heinz57 aHeinz("Bones");
+  cout << aHeinz.getName() << " says ";
+  aHeinz.Bark();
+  WalkTheDog(aHeinz);
+  BegForFood(aHeinz);
+  cout << endl;
 
-  WalkTheDog(terrier);
-  BegForFood(terrier);
-
-
-  WalkTheDog(heinz);
-  BegForFood(heinz);
-
-  WalkTheDog(hound);
-  BegForFood(hound);
-
-  WalkTheDog(poodle);
-  BegForFood(poodle);
-
-  WalkTheDog(scooby);
-  BegForFood(scooby);
-
-  WalkTheDog(shepherd);
-  BegForFood(shepherd);
-
+  return 0;
   return 0;
 }
 
