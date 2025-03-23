@@ -1,7 +1,6 @@
 #include "proj5-BUAthleteList.h"
 
-
-BUAthleteList::BUAthleteList(BUAthleteList& other) {
+BUAthleteList::BUAthleteList(BUAthleteList &other) {
   capacity = other.capacity;
   size = other.size;
   list = new BUAthlete[capacity];
@@ -11,7 +10,7 @@ BUAthleteList::BUAthleteList(BUAthleteList& other) {
   }
 }
 
-BUAthleteList& BUAthleteList::operator=(BUAthleteList& other) {
+BUAthleteList &BUAthleteList::operator=(BUAthleteList &other) {
   delete[] list;
 
   capacity = other.capacity;
@@ -27,10 +26,9 @@ BUAthleteList& BUAthleteList::operator=(BUAthleteList& other) {
 
 void BUAthleteList::resizeArray() {
   capacity += 2;
-  BUAthlete* newList = new BUAthlete[capacity];
+  BUAthlete *newList = new BUAthlete[capacity];
 
-
-  for (int i = 0; i < size; i++)  {
+  for (int i = 0; i < size; i++) {
     newList[i] = list[i];
   }
 
@@ -44,19 +42,18 @@ BUAthleteList::BUAthleteList() {
   list = new BUAthlete[capacity];
 }
 
-BUAthleteList::~BUAthleteList() {
-  delete[] list;
-}
+BUAthleteList::~BUAthleteList() { delete[] list; }
 
-void BUAthleteList::addNCAAAthlete(int ID, string name, string LOI, string school) {
+void BUAthleteList::addNCAAAthlete(int ID, string name, string loi,
+                                   string school) {
   if (size >= capacity) {
     resizeArray();
   }
-  
+
   list[size] = BUAthlete();
   list[size].setID(ID);
   list[size].setName(name);
-  list[size].setLOI("yes");
+  list[size].setLOI(loi);
   list[size].setSchool(school);
 
   size += 1;
@@ -77,22 +74,7 @@ int BUAthleteList::findById(int id) {
   return -1;
 }
 
-void BUAthleteList::sortByID() {
-  for (int i = 0; i < size; i++) {
-    for (int j = i; j < size - 1; j++) {
-
-    }
-  }
-
-}
-void BUAthleteList::sortByPosition() {
-  // TODO - quicksort
-
-}
-
-BUAthlete& BUAthleteList::operator[](int i) {
-  return list[i];
-}
+BUAthlete &BUAthleteList::operator[](int i) { return list[i]; }
 
 string BUAthleteList::toString() {
   stringstream ss;
@@ -104,4 +86,46 @@ string BUAthleteList::toString() {
   }
 
   return ss.str();
+}
+
+void BUAthleteList::sortByID() {
+  if (size <= 1) {
+    return;
+  }
+
+  for (int i = 0; i < size - 1; i++) {
+    bool swapped = false;
+
+    for (int j = 0; j < size - i - 1; j++) {
+      if (list[j].getID() > list[j + 1].getID()) {
+        swap(list[j], list[j + 1]);
+        swapped = true;
+      }
+    }
+
+    if (!swapped) {
+      return;
+    }
+  }
+}
+
+void BUAthleteList::sortByPosition() {
+  if (size <= 1) {
+    return;
+  }
+
+  for (int i = 0; i < size - 1; i++) {
+    bool swapped = false;
+
+    for (int j = 0; j < size - i - 1; j++) {
+      if (list[j].getPosition() > list[j + 1].getPosition()) {
+        swap(list[j], list[j + 1]);
+        swapped = true;
+      }
+    }
+
+    if (!swapped) {
+      return;
+    }
+  }
 }

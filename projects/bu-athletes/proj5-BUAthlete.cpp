@@ -1,5 +1,11 @@
 #include "proj5-BUAthlete.h"
+#include <iostream>
 
+string positionToString(Position p) {
+  string positions[] = {"OL", "QB", "RB", "WR", "TE", "DL", "DE", "LB", "CB", "S", "K"};
+
+  return positions[p];
+}
 
 BUAthlete::BUAthlete() {
   athleteID = -1;
@@ -36,9 +42,8 @@ string BUAthlete::toString() {
   } else {
     ss << "Available" << endl;
   }
-  ss << endl;
   ss << "Evaluation: " << evaluation << endl;
-  ss << "Position: " << position << endl;
+  ss << "Position: " << positionToString(position) << endl;
 
   return ss.str();
 }
