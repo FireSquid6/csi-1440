@@ -16,7 +16,9 @@ private:
   void resizeArray();
 public:
   BUAthleteList();
+  BUAthleteList(BUAthleteList&);
   ~BUAthleteList();
+  BUAthleteList& operator=(BUAthleteList&);
 
   void addNCAAAthlete(int ID, string name, string LOI, string school);
   void setBUInfo(int index, Position pos, int eval);

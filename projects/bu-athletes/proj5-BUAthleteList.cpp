@@ -1,6 +1,30 @@
 #include "proj5-BUAthleteList.h"
 
 
+BUAthleteList::BUAthleteList(BUAthleteList& other) {
+  capacity = other.capacity;
+  size = other.size;
+  list = new BUAthlete[capacity];
+
+  for (int i = 0; i < other.size; i++) {
+    list[i] = other.list[i];
+  }
+}
+
+BUAthleteList& BUAthleteList::operator=(BUAthleteList& other) {
+  delete[] list;
+
+  capacity = other.capacity;
+  size = other.size;
+  list = new BUAthlete[capacity];
+
+  for (int i = 0; i < other.size; i++) {
+    list[i] = other.list[i];
+  }
+
+  return *this;
+}
+
 void BUAthleteList::resizeArray() {
   capacity += 2;
   BUAthlete* newList = new BUAthlete[capacity];
