@@ -128,22 +128,21 @@ void testToString() {
   stringstream ss;
 
   ss << "[ 0 ]\n"
-              "ID: 1001\n"
-              "Name: John Doe\n"
-              "School: Baylor University\n"
-              "Evaluation: 85\n"
-              "Position: WR\n";
+        "ID: 1001\n"
+        "Name: John Doe\n"
+        "School: Baylor University\n"
+        "Evaluation: 85\n"
+        "Position: WR\n";
   ss << endl;
 
-  ss <<
-      "[ 1 ]\n"
-      "ID: 1002\n"
-      "Name: Jane Smith\n"
-      "School: Available\n" // LOI is "No", so "Available" should be shown
-      "Evaluation: 90\n"
-      "Position: QB\n";
+  ss << "[ 1 ]\n"
+        "ID: 1002\n"
+        "Name: Jane Smith\n"
+        "School: Available\n" // LOI is "No", so "Available" should be shown
+        "Evaluation: 90\n"
+        "Position: QB\n";
   ss << endl;
-  
+
   string expected = ss.str();
 
   testResult("ToString", expected == result);
@@ -205,6 +204,91 @@ void testDefensivePositions() {
   testResult("Defensive Positions", passed);
 }
 
+void testBUAthleteDefaultConstructor() {
+  BUAthlete athlete;
+  bool passed =
+      (athlete.getEvaluation() == 0 &&
+       athlete.getPosition() == OL); // Assuming OL is the default position
+  testResult("BUAthlete Default Constructor", passed);
+}
+
+// Test BUAthlete setters and getters
+void testBUAthleteSettersGetters() {
+  BUAthlete athlete;
+
+  athlete.setEvaluation(95);
+  athlete.setPosition(QB);
+
+  bool passed = (athlete.getEvaluation() == 95 && athlete.getPosition() == QB);
+  testResult("BUAthlete Setters/Getters", passed);
+}
+
+// Test BUAthlete inheritance from NCAAAthlete
+void testBUAthleteInheritance() {
+  BUAthlete athlete;
+
+  athlete.setID(2001);
+  athlete.setName("John Doe");
+  athlete.setSchool("Baylor University");
+  athlete.setLOI("yes");
+  athlete.setPosition(QB);
+  athlete.setEvaluation(99);
+
+  bool passed =
+      (athlete.getID() == 2001 && athlete.getName() == "John Doe" &&
+       athlete.getSchool() == "Baylor University" && athlete.getLOI() == true &&
+       athlete.getPosition() == QB && athlete.getEvaluation() == 99);
+  testResult("BUAthlete Inheritance", passed);
+}
+
+void testBUAthleteToString() {
+  BUAthlete athlete;
+
+  athlete.setID(2001);
+  athlete.setName("Sawyer Robertson");
+  athlete.setSchool("Baylor University");
+  athlete.setLOI("yes");
+  athlete.setPosition(QB);
+  athlete.setEvaluation(99);
+
+  string result = athlete.toString();
+
+  // Expected format for the athlete without the [n] part
+  string expected = "ID: 2001\n"
+                    "Name: Sawyer Robertson\n"
+                    "School: Baylor University\n"
+                    "Evaluation: 99\n"
+                    "Position: QB\n";
+
+  bool passed = (result == expected);
+  testResult("BUAthlete ToString", passed);
+}
+
+void testBUAthleteEvaluation() {
+  BUAthlete athlete;
+
+  athlete.setEvaluation(100); // Assuming 100 is maximum
+  bool passed = (athlete.getEvaluation() == 100);
+  testResult("BUAthlete Evaluation", passed);
+}
+
+void testBUAthleteAllPositions() {
+  BUAthlete athlete;
+
+  Position positions[] = {OL, QB, RB, WR, TE, DL, DE, LB, CB, S, K};
+  bool allPassed = true;
+
+  for (Position pos : positions) {
+    athlete.setPosition(pos);
+    if (athlete.getPosition() != pos) {
+      allPassed = false;
+      break;
+    }
+  }
+
+  testResult("BUAthlete All Positions", allPassed);
+}
+
 int main() {
   cout << "Running BUAthleteList Tests..." << endl;
 
@@ -221,6 +305,14 @@ int main() {
   testResize();
   testMultiplePositions();
   testDefensivePositions();
+
+  cout << "\nRunning BUAthlete Tests..." << endl;
+  testBUAthleteDefaultConstructor();
+  testBUAthleteSettersGetters();
+  testBUAthleteInheritance();
+  testBUAthleteToString();
+  testBUAthleteEvaluation();
+  testBUAthleteAllPositions();
 
   cout << "All tests completed." << endl;
   return 0;
