@@ -9,6 +9,8 @@ enum Position {OL, QB, RB, WR, TE, DL, DE, LB, CB, S, K};
 
 using namespace std;
 
+string positionToString(Position p);
+Position stringToPosition(string s);
 
 class BUAthlete: public NCAAAthlete {
 private:

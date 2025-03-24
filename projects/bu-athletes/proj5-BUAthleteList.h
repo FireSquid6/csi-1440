@@ -25,8 +25,10 @@ public:
   int findById(int id);
   void sortByID();
   void sortByPosition();
+  void sortByEvaluation();
   BUAthlete& operator[](int);
   string toString();
+  int getSize();
 };
 
 

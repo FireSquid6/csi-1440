@@ -6,6 +6,18 @@ string positionToString(Position p) {
 
   return positions[p];
 }
+Position stringToPosition(string s) {
+  string strings[] = {"OL", "QB", "RB", "WR", "TE", "DL", "DE", "LB", "CB", "S", "K"};
+
+  for (int i = 0; i < 12; i++) {
+    if (strings[i] == s) {
+      return static_cast<Position>(i);
+    }
+  }
+
+  
+  return Position::QB;
+}
 
 BUAthlete::BUAthlete() {
   athleteID = -1;
@@ -47,3 +59,5 @@ string BUAthlete::toString() {
 
   return ss.str();
 }
+
+

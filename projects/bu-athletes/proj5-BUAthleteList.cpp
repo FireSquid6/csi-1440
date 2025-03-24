@@ -65,13 +65,26 @@ void BUAthleteList::setBUInfo(int index, Position pos, int eval) {
 }
 
 int BUAthleteList::findById(int id) {
-  for (int i = 0; i < size; i++) {
-    if (list[i].getID() == id) {
-      return i;
+  int left = 0;
+  int right = size - 1;
+
+  while (left <= right) {
+    int mid = left + (right - left) / 2;
+
+    int currentId = list[mid].getID();
+
+    if (currentId == id) {
+      return mid;
+    }
+
+    if (currentId < id) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
     }
   }
 
-  return -1;
+  return -1; // Athlete with the given ID not found
 }
 
 BUAthlete &BUAthleteList::operator[](int i) { return list[i]; }
@@ -128,4 +141,29 @@ void BUAthleteList::sortByPosition() {
       return;
     }
   }
+}
+
+void BUAthleteList::sortByEvaluation() {
+  if (size <= 1) {
+    return;
+  }
+
+  for (int i = 0; i < size - 1; i++) {
+    bool swapped = false;
+
+    for (int j = 0; j < size - i - 1; j++) {
+      if (list[j].getEvaluation() < list[j + 1].getEvaluation()) {
+        swap(list[j], list[j + 1]);
+        swapped = true;
+      }
+    }
+
+    if (!swapped) {
+      return;
+    }
+  }
+}
+
+int BUAthleteList::getSize() {
+  return size;
 }
