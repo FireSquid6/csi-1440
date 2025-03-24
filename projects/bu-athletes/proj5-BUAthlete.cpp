@@ -1,3 +1,16 @@
+/**
+* file: proj5-BUAthlete.cpp
+* author: Jonathan Deiss
+* course: CSI 1440
+* assignment: project 1
+* due date: 3/23/2025
+*
+* date modified: 3/23/2025
+* - create the file
+* 
+* Contains the implementations for the athlete file
+*
+*/
 #include "proj5-BUAthlete.h"
 #include <iostream>
 

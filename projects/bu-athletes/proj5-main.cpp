@@ -1,3 +1,17 @@
+/**
+* file: proj5-main.cpp
+* author: Jonathan Deiss
+* course: CSI 1440
+* assignment: project 5
+* due date: 3/23/2025
+*
+* date modified: 3/23/2025
+* - create the file
+* 
+* Contains the maihn entrypoint into the project
+*
+*/
+
 #include "proj5-BUAthlete.h"
 #include "proj5-BUAthleteList.h"
 #include <fstream>

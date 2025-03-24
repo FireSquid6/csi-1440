@@ -1,3 +1,16 @@
+/**
+* file: proj5-testmain.cpp
+* author: Jonathan Deiss
+* course: CSI 1440
+* assignment: project 5
+* due date: 3/23/2025
+*
+* date modified: 3/23/2025
+* - create the file
+* 
+* Contains tests for the BUAthlete and BUAthleteList classes
+*
+*/
 #include "proj5-BUAthleteList.h"
 #include <cassert>
 #include <iostream>
