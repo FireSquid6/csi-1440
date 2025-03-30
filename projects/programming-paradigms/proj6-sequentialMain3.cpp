@@ -4,6 +4,9 @@
 
 using namespace std;
 
+// this only ever reads the first person from the file
+// I think that is intentional? The modular solution was
+// doing that as well on my machine
 int main() {
   string name, choice;
   int age;
@@ -28,7 +31,7 @@ int main() {
 
   choice = "yes";
   if (fileRead) {
-    // readPerson equivalent inline code
+    // readPerson pfile, name, age
     getline(pfile, name);
     pfile >> age;
     pfile.ignore(3, '\n');
@@ -39,29 +42,30 @@ int main() {
 
   while (choice != "no") {
     if (!fileRead) {
-      // requestInfo equivalent inline code
+      // requestInfo 
       cout << "Please enter your name followed by your age." << endl;
       
-      // readPerson equivalent inline code
+      // readPerson cin, name, age
       getline(cin, name);
       cin >> age;
       cin.ignore(3, '\n');
     }
 
-    // writePerson equivalent inline code
+    // writePerson name, age
     opfile << name << endl;
     opfile << age << endl;
 
     if (!fileRead) {
-      // readAgain equivalent inline code
+      // readAgain cin, choice
       cout << "Do you want to read in another person (yes/no)? " << endl;
       cin >> choice;
       cin.ignore(3, '\n');
     } else {
-      // readPerson equivalent inline code
+      // readPerson pfile, name, age
       getline(pfile, name);
       pfile >> age;
       pfile.ignore(3, '\n');
+
       if (!pfile) {
         choice = "no";
       }
