@@ -1,3 +1,16 @@
+/**
+* file: proj6-oopMain5.cpp
+* author: Jonathan Deiss
+* course: CSI 1440
+* assignment: project 6
+* due date: 3/30/2025
+*
+* date modified: 3/30/2025
+* - create the file
+* 
+* Contains the first program using object-oriented programming
+*
+*/
 #include <fstream>
 #include <iostream>
 #include <string>
