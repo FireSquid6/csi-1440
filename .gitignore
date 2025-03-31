@@ -3,3 +3,5 @@
 
 *.o
 .ccls-cache
+
+scratch/*.cpp
