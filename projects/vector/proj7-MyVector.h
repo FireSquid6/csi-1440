@@ -29,7 +29,7 @@ private:
 template <typename T> void MyVector<T>::grow() {
   capacity *= 2;
   T *newData = new T[capacity];
-  
+
   for (int i = 0; i < size; i++) {
     newData[i] = data[i];
   }
@@ -39,14 +39,15 @@ template <typename T> void MyVector<T>::grow() {
 }
 
 template <typename T> void MyVector<T>::shiftRight() {
-  if (size + 1 >= capacity) {
+  if (size >= capacity) {
     grow();
   }
 
-  size += 1;
-  for (int i = size - 1; i > 0; i++) {
+  for (int i = size; i > 0; i--) {
     data[i] = data[i - 1];
   }
+
+  size += 1;
 }
 
 template <typename T> void MyVector<T>::shiftLeft() {
@@ -78,7 +79,7 @@ template <typename T> MyVector<T>::MyVector(const MyVector &other) {
 template <typename T>
 MyVector<T> &MyVector<T>::operator=(const MyVector &other) {
   if (this == &other) {
-    return;
+    return *this;
   }
 
   delete[] data;
@@ -90,6 +91,8 @@ MyVector<T> &MyVector<T>::operator=(const MyVector &other) {
   for (int i = 0; i < size; i++) {
     data[i] = other.data[i];
   }
+
+  return *this;
 }
 
 template <typename T> MyVector<T> &MyVector<T>::pushFront(T val) {
@@ -110,6 +113,10 @@ template <typename T> MyVector<T> &MyVector<T>::pushBack(T val) {
 }
 
 template <typename T> MyVector<T> &MyVector<T>::popFront(T &val) {
+  if (size <= 0) {
+    throw BADINDEX();
+  }
+
   val = data[0];
   shiftLeft();
 
@@ -117,6 +124,9 @@ template <typename T> MyVector<T> &MyVector<T>::popFront(T &val) {
 }
 
 template <typename T> MyVector<T> &MyVector<T>::popBack(T &val) {
+  if (size <= 0) {
+    throw BADINDEX();
+  }
   val = data[size - 1];
   size -= 1;
 

@@ -2,6 +2,6 @@
 
 
 echo "COMPILING..."
-g++ proj7-TestMain.cpp -Wall -g -o test.o
+g++ proj7-TestMain.cpp -Wall -g -o main.o
 echo "TESTING..."
-./test.o
+./main.o
