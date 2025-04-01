@@ -22,28 +22,24 @@ using namespace std;
 void testConstructors() {
   cout << "Testing constructors..." << endl;
 
-  // Test default constructor
   MyVector<int> vec1;
   assert(vec1.getSize() == 0);
   assert(vec1.isEmpty());
 
-  // Test with some data
   MyVector<int> vec2;
   vec2.pushBack(10);
   vec2.pushBack(20);
   vec2.pushBack(30);
 
-  // Test copy constructor
   MyVector<int> vec3(vec2);
   assert(vec3.getSize() == 3);
   assert(vec3[0] == 10);
   assert(vec3[1] == 20);
   assert(vec3[2] == 30);
 
-  // Ensure deep copy (modify original)
   vec2.pushBack(40);
   assert(vec2.getSize() == 4);
-  assert(vec3.getSize() == 3); // vec3 size should remain unchanged
+  assert(vec3.getSize() == 3); 
 
   cout << "Constructor tests passed!" << endl;
 }
@@ -60,19 +56,16 @@ void testAssignmentOperator() {
   vec2.pushBack(40);
   vec2.pushBack(50);
 
-  // Test assignment
   vec1 = vec2;
   assert(vec1.getSize() == 3);
   assert(vec1[0] == 30);
   assert(vec1[1] == 40);
   assert(vec1[2] == 50);
 
-  // Ensure deep copy after assignment
   vec2.pushBack(60);
   assert(vec2.getSize() == 4);
-  assert(vec1.getSize() == 3); // vec1 size should remain unchanged
+  assert(vec1.getSize() == 3); 
 
-  // Test self-assignment
   vec1 = vec1;
   assert(vec1.getSize() == 3);
   assert(vec1[0] == 30);
@@ -87,7 +80,6 @@ void testPushFront() {
 
   MyVector<int> vec;
 
-  // Add elements to the front
   vec.pushFront(30);
   assert(vec.getSize() == 1);
   assert(vec[0] == 30);
@@ -111,7 +103,6 @@ void testPushBack() {
 
   MyVector<int> vec;
 
-  // Add elements to the back
   vec.pushBack(10);
   assert(vec.getSize() == 1);
   assert(vec[0] == 10);
@@ -140,7 +131,6 @@ void testPopFront() {
 
   int value;
 
-  // Remove elements from the front
   vec.popFront(value);
   assert(value == 10);
   assert(vec.getSize() == 2);
@@ -170,7 +160,6 @@ void testPopBack() {
 
   int value;
 
-  // Remove elements from the back
   vec.popBack(value);
   assert(value == 30);
   assert(vec.getSize() == 2);
@@ -217,20 +206,18 @@ void testBracketOperator() {
   vec.pushBack(20);
   vec.pushBack(30);
 
-  // Test read access
   assert(vec[0] == 10);
   assert(vec[1] == 20);
   assert(vec[2] == 30);
 
-  // Test write access
   vec[1] = 25;
   assert(vec[1] == 25);
 
-  // Test for out of bounds exception
   bool exceptionCaught = false;
   try {
-    int value = vec[3]; // Should throw exception
-    (void)value;        // Avoid unused variable warning
+    // you might get a warning here for an unused
+    // variable
+    int _ = vec[3]; 
   } catch (BADINDEX) {
     exceptionCaught = true;
   }
@@ -295,7 +282,6 @@ void testEdgeCases() {
 
   MyVector<int> vec;
 
-  // Test pop operations on empty vector
   int value;
   bool exceptionCaught = false;
 
@@ -315,7 +301,6 @@ void testEdgeCases() {
   }
   assert(exceptionCaught);
 
-  // Test front and back on empty vector
   exceptionCaught = false;
   try {
     vec.front();
@@ -340,7 +325,6 @@ void testGrowFunctionality() {
 
   MyVector<int> vec;
 
-  // Add many elements to force multiple grows
   for (int i = 0; i < 100; i++) {
     vec.pushBack(i);
   }
