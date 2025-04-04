@@ -215,9 +215,8 @@ void testBracketOperator() {
 
   bool exceptionCaught = false;
   try {
-    // you might get a warning here for an unused
-    // variable
-    int _ = vec[3]; 
+    int val = vec[3]; 
+    cout << val << endl;
   } catch (BADINDEX) {
     exceptionCaught = true;
   }
