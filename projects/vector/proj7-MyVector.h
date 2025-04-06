@@ -421,10 +421,4 @@ template <typename T> int MyVector<T>::getSize() { return size; }
 
 template <typename T> bool MyVector<T>::isEmpty() { return size == 0; }
 
-template <typename T> void MyVector<T>::erase() {
-  delete[] data;
-
-  capacity = 10;
-  size = 0;
-  data = new T[capacity];
-}
+template <typename T> void MyVector<T>::erase() { size = 0; }
