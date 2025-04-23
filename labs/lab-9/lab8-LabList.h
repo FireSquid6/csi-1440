@@ -68,7 +68,7 @@ template <typename T>
 LabList<T> &LabList<T>::operator=(const LabList<T> &other) {
   // edge case for self assign
   if (this == &other) {
-    return;
+    return *this;
   }
 
   // remove all self nodes
@@ -78,7 +78,7 @@ LabList<T> &LabList<T>::operator=(const LabList<T> &other) {
 
   // edge case for assignment to empty list
   if (other.head == NULL) {
-    return;
+    return *this;
   }
 
   ListNode<T>* node = other.head;
@@ -145,7 +145,7 @@ template <typename T> LabList<T> &LabList<T>::removeTail(T &val) {
   if (tail == NULL) {
     throw BADINDEX();
   }
-  val = tail.data;
+  val = tail->data;
 
   if (head == tail) {
     delete[] head;
