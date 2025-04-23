@@ -178,6 +178,7 @@ template <typename T> ostream &LabList<T>::printList(ostream &s) {
     node = node->next;
     s << '\t';
   } while (node != head);
+  s << endl;
 
   return s;
 }
