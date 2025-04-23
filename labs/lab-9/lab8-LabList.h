@@ -24,3 +24,49 @@ public:
 
   ostream & printList( ostream & );
 };
+
+
+template <typename T>
+LabList<T>::LabList() {
+
+}
+
+template <typename T>
+LabList<T>::LabList(const LabList<T>&) {
+
+}
+
+template <typename T>
+LabList<T>::~LabList() {
+
+}
+
+template <typename T>
+LabList<T>& LabList<T>::operator=(const LabList<T>&) {
+
+}
+
+template <typename T>
+LabList<T>& LabList<T>::insertHead(T val) {
+
+}
+
+template <typename T>
+LabList<T>& LabList<T>::insertTail(T val) {
+
+}
+
+template <typename T>
+LabList<T>& LabList<T>::removeHead(T& val) {
+
+}
+
+template <typename T>
+LabList<T>& LabList<T>::removeTail(T& val) {
+
+}
+
+template <typename T>
+ostream& LabList<T>::printList(ostream& s) {
+
+}
