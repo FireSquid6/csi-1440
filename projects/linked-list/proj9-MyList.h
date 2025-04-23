@@ -16,6 +16,7 @@
 
 #include "proj9-ContainerIfc.h"
 #include "proj9-Node.h"
+#include <cstddef>
 
 template <class T> class MyList : public ContainerIfc<T> {
 public:
