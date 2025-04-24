@@ -55,7 +55,7 @@ template <typename T> LabList<T>::LabList(const LabList<T> &other) {
     return;
   }
 
-  ListNode<T>* node = other.head;
+  ListNode<T> *node = other.head;
   do {
     insertTail(node->data);
     node = node->next;
@@ -81,7 +81,7 @@ LabList<T> &LabList<T>::operator=(const LabList<T> &other) {
     return *this;
   }
 
-  ListNode<T>* node = other.head;
+  ListNode<T> *node = other.head;
   do {
     insertTail(node->data);
     node = node->next;
@@ -168,7 +168,7 @@ template <typename T> LabList<T> &LabList<T>::removeTail(T &val) {
 // no description given for how specifically this should be formatted
 template <typename T> ostream &LabList<T>::printList(ostream &s) {
   if (head == NULL) {
-    s << "EMPTY" << endl;
+    s << "Empty List" << endl;
     return s;
   }
   ListNode<T> *node = head;
@@ -176,7 +176,9 @@ template <typename T> ostream &LabList<T>::printList(ostream &s) {
   do {
     s << node->data;
     node = node->next;
-    s << '\t';
+    if (node != head) {
+      s << '\t';
+    }
   } while (node != head);
   s << endl;
 
