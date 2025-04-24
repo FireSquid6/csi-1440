@@ -3,20 +3,17 @@
 
 #include <cstddef>
 
-template <class T>
-class Node {
+template <class T> class Node {
 public:
   T data;
-  Node <T>*next;
+  Node<T> *next;
 
-  Node( T d ) {
+  Node(T d) {
     data = d;
     next = NULL;
   }
-  
-  ~Node( ) {
-    delete next;
-  }
+
+  ~Node() { delete next; }
 };
 
 #endif
