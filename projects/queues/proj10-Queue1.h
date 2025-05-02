@@ -9,4 +9,12 @@ public:
   void dequeue(T &); // throws BADINDEX
 };
 
+template <class T> void Queue1<T>::enqueue(T val) {
+  pushFront(val);
+}
+
+template <class T> void Queue1<T>::dequeue(T& val) {
+  popBack(val);
+}
+
 #endif
