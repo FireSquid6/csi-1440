@@ -10,6 +10,11 @@ public:
 };
 
 // we just used pushBack and pushFront
+// this works since I implemented MyList as a circular
+// linked list, so both pushBack and popFront are O(1)
+//
+// popBack is the "slow" function. We could not use this
+// as a dequeue
 template <class T> void Queue3<T>::enqueue(T val) {
   pushBack(val);
 }
