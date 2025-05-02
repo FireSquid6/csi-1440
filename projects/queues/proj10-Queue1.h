@@ -10,11 +10,11 @@ public:
 };
 
 template <class T> void Queue1<T>::enqueue(T val) {
-  pushFront(val);
+  this->pushFront(val);
 }
 
 template <class T> void Queue1<T>::dequeue(T& val) {
-  popBack(val);
+  this->popBack(val);
 }
 
 #endif

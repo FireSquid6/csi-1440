@@ -173,7 +173,7 @@ template <class T> int MyList<T>::getSize() {
   }
 
   int size = 0;
-  Node<T> node = head;
+  Node<T>* node = head;
 
   while (node != tail) {
     node = node->next;
@@ -208,7 +208,7 @@ template <class T> T &MyList<T>::operator[](int i) {
     throw BADINDEX();
   }
 
-  Node<T> node = head;
+  Node<T>* node = head;
 
   while (i > 0) {
     if (node == tail) {

@@ -16,11 +16,11 @@ public:
 // popBack is the "slow" function. We could not use this
 // as a dequeue
 template <class T> void Queue3<T>::enqueue(T val) {
-  pushBack(val);
+  this->pushBack(val);
 }
 
 template <class T> void Queue3<T>::dequeue(T& val) {
-  popFront(val);
+  this->popFront(val);
 }
 
 #endif
