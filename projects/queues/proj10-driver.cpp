@@ -75,8 +75,9 @@ void testQueue3(int num) {
 }
 
 int main() {
-  int num = 100000;
-  
-  testQueue1(num);
+  // beyond this queue1 gets slow
+  testQueue1(100000);
+  testQueue2(100000);
+  testQueue3(100000);
 }
 

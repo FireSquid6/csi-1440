@@ -4,6 +4,9 @@
 #include "proj10-ContainerIfc.h"
 #include "proj10-Node.h"
 #include <cstddef>
+#include <iostream>
+
+using namespace std;
 
 template <class T> class MyList : public ContainerIfc<T> {
 public:
@@ -27,8 +30,7 @@ private:
   Node<T> *tail;
 };
 
-template <typename T>
-void deleteCircularList(Node<T> *node, Node<T> *head) {
+template <typename T> void deleteCircularList(Node<T> *node, Node<T> *head) {
   if (node == NULL || head == NULL) {
     return;
   }
@@ -37,11 +39,10 @@ void deleteCircularList(Node<T> *node, Node<T> *head) {
     deleteCircularList(node->next, head);
   }
 
-  delete[] node;
+  delete node;
 }
 
-template <class T>
-MyList<T>::MyList() {
+template <class T> MyList<T>::MyList() {
   head = NULL;
   tail = NULL;
 }
@@ -54,16 +55,14 @@ template <class T> MyList<T>::MyList(const MyList &other) {
     return;
   }
 
-  Node<T>* node = other.head;
+  Node<T> *node = other.head;
   do {
     pushBack(node->data);
     node = node->next;
   } while (node != other.head);
 }
 
-template <class T> MyList<T>::~MyList() {
-  
-}
+template <class T> MyList<T>::~MyList() { deleteCircularList(head, head); }
 
 template <class T> MyList<T> &MyList<T>::operator=(const MyList &other) {
   if (this == &other) {
@@ -129,17 +128,22 @@ template <class T> MyList<T> &MyList<T>::popFront(T &val) {
   val = head->data;
 
   if (head == tail) {
-    delete[] head;
+    head->next = NULL;
+    delete head;
+
     head = NULL;
     tail = NULL;
   } else {
     Node<T> *oldHead = head;
 
+
     head = head->next;
     tail->next = head;
 
-    delete[] oldHead;
+    oldHead->next = NULL;
+    delete oldHead;
   }
+
   return *this;
 }
 
@@ -150,7 +154,9 @@ template <class T> MyList<T> &MyList<T>::popBack(T &val) {
   val = tail->data;
 
   if (head == tail) {
-    delete[] head;
+    head->next = NULL;
+    delete head;
+
     head = NULL;
     tail = NULL;
   } else {
@@ -159,7 +165,9 @@ template <class T> MyList<T> &MyList<T>::popBack(T &val) {
       beforeTail = beforeTail->next;
     }
 
-    delete[] tail;
+    tail->next = NULL;
+    delete tail;
+
     tail = beforeTail;
     tail->next = head;
   }
@@ -173,7 +181,7 @@ template <class T> int MyList<T>::getSize() {
   }
 
   int size = 0;
-  Node<T>* node = head;
+  Node<T> *node = head;
 
   while (node != tail) {
     node = node->next;
@@ -183,9 +191,7 @@ template <class T> int MyList<T>::getSize() {
   return size;
 }
 
-template <class T> bool MyList<T>::isEmpty() {
-  return head == NULL;
-}
+template <class T> bool MyList<T>::isEmpty() { return head == NULL; }
 
 template <class T> T MyList<T>::front() {
   if (head == NULL) {
@@ -208,7 +214,7 @@ template <class T> T &MyList<T>::operator[](int i) {
     throw BADINDEX();
   }
 
-  Node<T>* node = head;
+  Node<T> *node = head;
 
   while (i > 0) {
     if (node == tail) {
@@ -222,8 +228,6 @@ template <class T> T &MyList<T>::operator[](int i) {
   return node->data;
 }
 
-template <class T> void MyList<T>::erase() {
-  deleteCircularList(head, head);
-}
+template <class T> void MyList<T>::erase() { deleteCircularList(head, head); }
 
 #endif
