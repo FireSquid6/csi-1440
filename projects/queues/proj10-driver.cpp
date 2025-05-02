@@ -79,5 +79,9 @@ int main() {
   testQueue1(100000);
   testQueue2(100000);
   testQueue3(100000);
+  
+  // if you want to see a difference between two and three;
+  // testQueue2(1000000);
+  // testQueue3(1000000);
 }
 
